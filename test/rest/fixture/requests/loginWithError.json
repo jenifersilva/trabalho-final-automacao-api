@@ -1,0 +1,20 @@
+[
+  {
+    "testName": "Deve retornar erro quando o usuário não for informado",
+    "loginUser": {
+      "username": null,
+      "password": "senha123"
+    },
+    "statusCode": 400,
+    "expectedMessage": "Usuário e senha obrigatórios"
+  },
+  {
+    "testName": "Deve retornar erro quando a senha não for informada",
+    "loginUser": {
+      "username": "jenifer",
+      "password": null
+    },
+    "statusCode": 400,
+    "expectedMessage": "Usuário e senha obrigatórios"
+  }
+]

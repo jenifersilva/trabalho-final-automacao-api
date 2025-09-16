@@ -1,0 +1,29 @@
+[
+  {
+    "testName": "Deve retornar erro quando o usuário não for informado",
+    "createUser": {
+      "username": null,
+      "password": "senha123"
+    },
+    "statusCode": 400,
+    "expectedMessage": "Usuário e senha obrigatórios"
+  },
+  {
+    "testName": "Deve retornar erro quando a senha não for informada",
+    "createUser": {
+      "username": "jenifer",
+      "password": null
+    },
+    "statusCode": 400,
+    "expectedMessage": "Usuário e senha obrigatórios"
+  },
+  {
+    "testName": "Deve retornar erro quando o usuário já existir",
+    "createUser": {
+      "username": "jenifer",
+      "password": "senha123"
+    },
+    "statusCode": 409,
+    "expectedMessage": "Usuário já existe"
+  }
+]

@@ -6,20 +6,45 @@ function findUserByUsername(username) {
 }
 
 async function registerUser(username, password) {
+  if (!username || !password) {
+    const err = new Error('Usuário e senha obrigatórios');
+    err.status = 400;
+    throw err;
+  }
   if (findUserByUsername(username)) {
-    throw new Error('Usuário já existe');
+    const err = new Error('Usuário já existe');
+    err.status = 409;
+    throw err;
   }
   const hashedPassword = await bcrypt.hash(password, 10);
   const user = { username, password: hashedPassword };
   users.push(user);
-  return user;
+  return { message: 'Usuário registrado com sucesso', user };
 }
 
+const jwt = require('jsonwebtoken');
+const { secret, expiresIn } = require('../config/jwt');
+
 async function validateUser(username, password) {
+  if (!username || !password) {
+    const err = new Error('Usuário e senha obrigatórios');
+    err.status = 400;
+    throw err;
+  }
   const user = findUserByUsername(username);
-  if (!user) return false;
+  if (!user) {
+    const err = new Error('Credenciais inválidas');
+    err.status = 401;
+    throw err;
+  }
   const valid = await bcrypt.compare(password, user.password);
-  return valid ? user : false;
+  if (!valid) {
+    const err = new Error('Credenciais inválidas');
+    err.status = 401;
+    throw err;
+  }
+  const token = jwt.sign({ username: user.username }, secret, { expiresIn });
+  return { token };
 }
 
 module.exports = { registerUser, validateUser, findUserByUsername };

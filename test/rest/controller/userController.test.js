@@ -1,8 +1,6 @@
 const request = require("supertest");
-const sinon = require("sinon");
 const { expect } = require("chai");
 const app = require("../../../app.js");
-const userService = require("../../../service/userService.js");
 
 describe("User Controller", () => {
   describe("POST /users/register", () => {

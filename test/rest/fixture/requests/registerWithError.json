@@ -3,7 +3,7 @@
     "testName": "Deve retornar erro quando o usuário não for informado",
     "createUser": {
       "username": null,
-      "password": "senha123"
+      "password": "password"
     },
     "statusCode": 400,
     "expectedMessage": "Usuário e senha obrigatórios"
@@ -21,7 +21,7 @@
     "testName": "Deve retornar erro quando o usuário já existir",
     "createUser": {
       "username": "jenifer",
-      "password": "senha123"
+      "password": "password"
     },
     "statusCode": 409,
     "expectedMessage": "Usuário já existe"

@@ -3,7 +3,7 @@
     "testName": "Deve retornar erro quando o usuário não for informado",
     "loginUser": {
       "username": null,
-      "password": "senha123"
+      "password": "password"
     },
     "statusCode": 400,
     "expectedMessage": "Usuário e senha obrigatórios"
@@ -16,5 +16,23 @@
     },
     "statusCode": 400,
     "expectedMessage": "Usuário e senha obrigatórios"
+  },
+  {
+    "testName": "Deve retornar erro quando informar usuário inexistente",
+    "loginUser": {
+      "username": "string",
+      "password": "password"
+    },
+    "statusCode": 401,
+    "expectedMessage": "Credenciais inválidas"
+  },
+  {
+    "testName": "Deve retornar erro quando informar senha incorreta",
+    "loginUser": {
+      "username": "jenifer",
+      "password": "string"
+    },
+    "statusCode": 401,
+    "expectedMessage": "Credenciais inválidas"
   }
 ]

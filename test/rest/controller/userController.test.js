@@ -18,13 +18,16 @@ describe("User Controller", () => {
     });
 
     it("Deve criar usuário com sucesso", async () => {
-      const resposta = await request(app)
+      const response = await request(app)
         .post("/users/register")
         .send({
           username: `user${Math.random()}`,
           password: "password",
         });
-      expect(resposta.status).to.equal(201);
+
+      const expectedResponse = require("../fixture/responses/registerSuccessful.json");
+      expect(response.status).to.equal(expectedResponse.statusCode);
+      expect(response.body).to.deep.equal(expectedResponse.body);
     });
   });
 
@@ -33,21 +36,20 @@ describe("User Controller", () => {
     businessErrorsTests.forEach((test) => {
       it(`${test.testName}`, async () => {
         const response = await request(app)
-        .post("/users/login")
-        .send(test.loginUser);
-      expect(response.status).to.equal(test.statusCode);
+          .post("/users/login")
+          .send(test.loginUser);
+        expect(response.status).to.equal(test.statusCode);
         expect(response.body.message).to.equal(test.expectedMessage);
       });
     });
 
-    it("Deve retornar erro quando as credenciais forem inválidas", async () => {
-      const response = await request(app)
-        .post("/users/login")
-        .send({
-          username: "user",
-          password: `password${Math.random()}`,
-        });
-      expect(response.status).to.equal(401);
+    it("Deve realizar o login com sucesso", async () => {
+      const response = await request(app).post("/users/login").send({
+        username: "jenifer",
+        password: "password",
+      });
+      expect(response.status).to.equal(200);
+      expect(response.body.token).to.be.not.null;
     });
   });
 });

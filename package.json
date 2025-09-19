@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start-rest": "node server.js",
     "test": "mocha 'test/**/*.test.js' --timeout 10000 --reporter mochawesome",
     "test-controller-rest": "mocha 'test/rest/controller/**/*.test.js' --timeout 10000 --reporter mochawesome",
     "test-external-rest": "mocha 'test/rest/external/**/*.test.js' --timeout 10000 --reporter mochawesome"

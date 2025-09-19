@@ -24,7 +24,6 @@ async function startApollo() {
             return { user };
           } catch (e) {
             // Token is invalid or expired.
-            // It's good practice to not throw an error here, but return null.
             // The resolvers will handle the unauthenticated case.
           }
         }

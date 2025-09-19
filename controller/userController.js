@@ -24,7 +24,6 @@ router.post('/users/login', async (req, res) => {
 });
 
 router.get('/users', (req, res) => {
-  // Lista todos os usuários (apenas para debug, não recomendado em produção)
   res.json({ users: require('../model/userModel').users.map(u => ({ username: u.username })) });
 });
 

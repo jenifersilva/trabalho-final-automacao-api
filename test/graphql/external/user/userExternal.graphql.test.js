@@ -3,7 +3,7 @@ const { expect } = require("chai");
 require("dotenv").config();
 
 describe("User External - GraphQL", () => {
-  describe("register mutation", () => {
+  describe("register Mutation", () => {
     const businessErrorsTests = require("../../../graphql/fixture/requests/user/createUserRequestWithError.json");
     businessErrorsTests.forEach((test) => {
       it(`${test.testName}`, async () => {
@@ -27,7 +27,7 @@ describe("User External - GraphQL", () => {
     });
   });
 
-  describe("login query", () => {
+  describe("login Query", () => {
     const businessErrorsTests = require("../../fixture/requests/user/loginRequestWithError.json");
     businessErrorsTests.forEach((test) => {
       it(`${test.testName}`, async () => {

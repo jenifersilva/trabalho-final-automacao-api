@@ -45,6 +45,14 @@ jobs:
       - name: Run GraphQL HTTP tests
         run: npm run test-external-graphql
 
+      - name: Merge Mochawesome JSON reports
+        if: ${{ always() }}
+        run: npm run report:merge
+
+      - name: Generate Mochawesome HTML unified report
+        if: ${{ always() }}
+        run: npm run report:generate
+
       - name: Upload report artifact
         uses: actions/upload-artifact@v4
         if: ${{ always() }}

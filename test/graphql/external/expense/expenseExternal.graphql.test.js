@@ -54,7 +54,7 @@ describe("Expense External - GraphQL", () => {
     });
   });
 
-  describe("editExpense mutation", () => {
+  describe("editExpense Mutation", () => {
     const expenseId = 1;
 
     const businessErrorsTests = require("../../fixture/requests/expense/editExpenseRequestWithError.json");

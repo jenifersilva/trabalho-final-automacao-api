@@ -5,11 +5,13 @@
   "scripts": {
     "start-rest": "node server.js",
     "start-graphql": "node graphql/server.js",
-    "test": "mocha \"test/**/*.test.js\" --timeout 10000 --reporter mochawesome --reporter-options reportFilename=index",
-    "test-controller-rest": "mocha 'test/rest/controller/**/*.test.js' --timeout 10000 --reporter mochawesome --reporter-options reportFilename=index",
-    "test-controller-graphql": "mocha 'test/graphql/controller/**/*.test.js' --timeout 10000 --reporter mochawesome --reporter-options reportFilename=index",
-    "test-external-rest": "mocha 'test/rest/external/**/*.test.js' --timeout 10000 --reporter mochawesome --reporter-options reportFilename=index",
-    "test-external-graphql": "mocha 'test/graphql/external/**/*.test.js' --timeout 10000 --reporter mochawesome --reporter-options reportFilename=index"
+    "test": "mocha 'test/**/*.test.js' --timeout 10000 --reporter mochawesome",
+    "test-controller-rest": "mocha 'test/rest/controller/**/*.test.js' --timeout 10000 --reporter mochawesome --reporter-options reportDir=mochawesome-report,overwrite=false",
+    "test-controller-graphql": "mocha 'test/graphql/controller/**/*.test.js' --timeout 10000 --reporter mochawesome --reporter-options reportDir=mochawesome-report,overwrite=false",
+    "test-external-rest": "mocha 'test/rest/external/**/*.test.js' --timeout 10000 --reporter mochawesome --reporter-options reportDir=mochawesome-report,overwrite=false",
+    "test-external-graphql": "mocha 'test/graphql/external/**/*.test.js' --timeout 10000 --reporter mochawesome --reporter-options reportDir=mochawesome-report,overwrite=false",
+    "report:merge": "mochawesome-merge mochawesome-report/*.json > mochawesome.json",
+    "report:generate": "marge mochawesome.json --reportDir mochawesome-report --reportFilename index"
   },
   "devDependencies": {
     "bcryptjs": "^2.4.3",
@@ -18,8 +20,10 @@
     "dotenv": "^16.6.1",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
+    "marge": "^1.0.1",
     "mocha": "^11.7.2",
     "mochawesome": "^7.1.4",
+    "mochawesome-merge": "^5.0.0",
     "sinon": "^21.0.0",
     "supertest": "^7.1.4",
     "swagger-ui-express": "^5.0.1"

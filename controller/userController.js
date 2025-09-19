@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const { registerUser, validateUser } = require('../service/userService');
+const userService = require('../service/userService');
+
 
 router.post('/users/register', async (req, res) => {
   const { username, password } = req.body;
   try {
-    const result = await registerUser(username, password);
+    const result = await userService.registerUser(username, password);
     res.status(201).json({ message: result.message });
   } catch (err) {
     res.status(err.status || 500).json({ message: err.message });
@@ -15,7 +16,7 @@ router.post('/users/register', async (req, res) => {
 router.post('/users/login', async (req, res) => {
   const { username, password } = req.body;
   try {
-    const result = await validateUser(username, password);
+    const result = await userService.validateUser(username, password);
     res.json({ token: result.token });
   } catch (err) {
     res.status(err.status || 500).json({ message: err.message });

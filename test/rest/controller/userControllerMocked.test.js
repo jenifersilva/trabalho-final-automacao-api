@@ -1,8 +1,8 @@
 const request = require("supertest");
-const sinon = require("sinon");
 const { expect } = require("chai");
-const app = require("../../../app.js");
+const sinon = require("sinon");
 const userService = require("../../../service/userService.js");
+const app = require("../../../app.js");
 
 describe("User Controller - Mocked", () => {
   afterEach(() => {
@@ -10,12 +10,13 @@ describe("User Controller - Mocked", () => {
   });
 
   describe("POST /users/register", () => {
-    const businessErrorsTests = require("../fixture/requests/registerWithError.json");
+    const businessErrorsTests = require("../fixture/requests/user/registerRequestWithError.json");
     businessErrorsTests.forEach((test) => {
       it(`${test.testName}`, async () => {
         const error = new Error(test.expectedMessage);
         error.status = test.statusCode;
-        sinon.stub(userService, "registerUser").returns(error);
+        const userServiceMock = sinon.stub(userService, "registerUser");
+        userServiceMock.throws(error);
 
         const response = await request(app)
           .post("/users/register")
@@ -26,8 +27,9 @@ describe("User Controller - Mocked", () => {
     });
 
     it("Deve criar usuário com sucesso", async () => {
-      const expectedResponse = require("../fixture/responses/registerSuccessful.json");
-      sinon.stub(userService, "registerUser").resolves({
+      const expectedResponse = require("../fixture/responses/user/registerResponseSuccessful.json");
+      const userServiceMock = sinon.stub(userService, "registerUser");
+      userServiceMock.returns({
         message: expectedResponse.body.message,
         user: { username: "user", password: "password" },
       });
@@ -43,13 +45,14 @@ describe("User Controller - Mocked", () => {
   });
 
   describe("POST /users/login", () => {
-    const businessErrorsTests = require("../fixture/requests/loginWithError.json");
+    const businessErrorsTests = require("../fixture/requests/user/loginRequestWithError.json");
 
     businessErrorsTests.forEach((test) => {
       it(`${test.testName}`, async () => {
         const error = new Error(test.expectedMessage);
         error.status = test.statusCode;
-        sinon.stub(userService, "validateUser").rejects(error);
+        const userServiceMock = sinon.stub(userService, "validateUser");
+        userServiceMock.throws(error);
 
         const response = await request(app)
           .post("/users/login")
@@ -60,14 +63,15 @@ describe("User Controller - Mocked", () => {
     });
 
     it("Deve realizar o login com sucesso", async () => {
-      sinon.stub(userService, "validateUser").resolves({
+      const userServiceMock = sinon.stub(userService, "validateUser");
+      userServiceMock.returns({
         token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.mocktoken",
       });
 
-      const response = await request(app).post("/users/login").send({
-        username: "username",
-        password: "password",
-      });
+      const loginRequest = require("../fixture/requests/user/loginRequest.json");
+      const response = await request(app)
+        .post("/users/login")
+        .send(loginRequest);
 
       expect(response.status).to.equal(200);
       expect(response.body.token).to.be.not.null;

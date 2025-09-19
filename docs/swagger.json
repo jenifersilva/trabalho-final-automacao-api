@@ -3,7 +3,7 @@
   "info": {
     "title": "API de Despesas",
     "version": "1.0.0",
-    "description": "API para registro e consulta de usuários e despesas."
+    "description": "API para registro e consulta de usuários e despesas, com autenticação JWT e testes automatizados."
   },
   "servers": [
     { "url": "http://localhost:3000" }
@@ -19,17 +19,44 @@
     "schemas": {
       "User": {
         "type": "object",
+        "required": ["username", "password"],
         "properties": {
-          "username": { "type": "string" },
-          "password": { "type": "string" }
+          "username": { 
+            "type": "string",
+            "description": "Nome de usuário único"
+          },
+          "password": { 
+            "type": "string",
+            "description": "Senha do usuário"
+          }
         }
       },
       "Expense": {
         "type": "object",
+        "required": ["description", "value", "date"],
         "properties": {
-          "description": { "type": "string" },
-          "value": { "type": "number" },
-          "date": { "type": "string", "format": "date" }
+          "description": { 
+            "type": "string",
+            "description": "Descrição da despesa"
+          },
+          "value": { 
+            "type": "number",
+            "description": "Valor da despesa"
+          },
+          "date": { 
+            "type": "string", 
+            "format": "date",
+            "description": "Data da despesa"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Mensagem de erro"
+          }
         }
       }
     }
@@ -38,7 +65,9 @@
   "paths": {
     "/users/register": {
       "post": {
+        "tags": ["Usuários"],
         "summary": "Registrar novo usuário",
+        "description": "Cria um novo usuário no sistema",
         "requestBody": {
           "required": true,
           "content": {
@@ -48,14 +77,46 @@
           }
         },
         "responses": {
-          "201": { "description": "Usuário registrado" },
-          "409": { "description": "Usuário já existe" }
+          "201": { 
+            "description": "Usuário registrado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": { 
+                      "type": "string",
+                      "example": "Usuário registrado com sucesso"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          },
+          "409": { 
+            "description": "Usuário já existe",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
         }
       }
     },
     "/users/login": {
       "post": {
+        "tags": ["Usuários"],
         "summary": "Login do usuário",
+        "description": "Autentica um usuário e retorna um token JWT",
         "requestBody": {
           "required": true,
           "content": {
@@ -66,25 +127,75 @@
         },
         "responses": {
           "200": {
-            "description": "Login bem-sucedido, retorna JWT",
+            "description": "Login bem-sucedido",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "token": { "type": "string" }
+                    "token": { 
+                      "type": "string",
+                      "description": "Token JWT para autenticação"
+                    }
                   }
                 }
               }
             }
           },
-          "401": { "description": "Credenciais inválidas" }
+          "400": {
+            "description": "Dados inválidos",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          },
+          "401": { 
+            "description": "Credenciais inválidas",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": ["Usuários"],
+        "summary": "Listar usuários",
+        "description": "Lista todos os usuários registrados (apenas para debug)",
+        "responses": {
+          "200": {
+            "description": "Lista de usuários",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "users": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "username": { "type": "string" }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       }
     },
     "/expenses": {
       "post": {
+        "tags": ["Despesas"],
         "summary": "Registrar despesa",
+        "description": "Registra uma nova despesa para o usuário autenticado",
         "security": [{ "bearerAuth": [] }],
         "requestBody": {
           "required": true,
@@ -95,12 +206,36 @@
           }
         },
         "responses": {
-          "201": { "description": "Despesa registrada" },
-          "401": { "description": "Token não fornecido" }
+          "201": { 
+            "description": "Despesa registrada",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Expense" }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          },
+          "401": { 
+            "description": "Token não fornecido",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
         }
       },
       "get": {
-        "summary": "Consultar despesas do usuário logado",
+        "tags": ["Despesas"],
+        "summary": "Consultar despesas",
+        "description": "Retorna todas as despesas do usuário autenticado",
         "security": [{ "bearerAuth": [] }],
         "responses": {
           "200": {
@@ -114,19 +249,29 @@
               }
             }
           },
-          "401": { "description": "Token não fornecido" }
+          "401": { 
+            "description": "Token não fornecido",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
         }
       }
     },
     "/expenses/{id}": {
       "put": {
+        "tags": ["Despesas"],
         "summary": "Editar despesa",
+        "description": "Atualiza uma despesa existente do usuário autenticado. Somente description, value e date podem ser alterados. Campos vazios não são permitidos.",
         "security": [{ "bearerAuth": [] }],
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
+            "description": "ID da despesa a ser editada",
             "schema": { "type": "integer" }
           }
         ],
@@ -134,14 +279,107 @@
           "required": true,
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/Expense" }
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "description": { "type": "string" },
+                  "value": { "type": "number" },
+                  "date": { "type": "string", "format": "date" }
+                }
+              },
+              "example": {
+                "description": "Nova descrição",
+                "value": 150.50,
+                "date": "2025-09-18"
+              }
             }
           }
         },
         "responses": {
-          "200": { "description": "Despesa editada" },
-          "401": { "description": "Token não fornecido" },
-          "404": { "description": "Despesa não encontrada" }
+          "200": { 
+            "description": "Despesa editada",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Expense" }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos ou campos vazios",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          },
+          "401": { 
+            "description": "Token não fornecido",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          },
+          "404": { 
+            "description": "Despesa não encontrada",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Despesas"],
+        "summary": "Excluir despesa",
+        "description": "Remove uma despesa existente do usuário autenticado",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID da despesa a ser excluída",
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Despesa excluída com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Despesa excluída com sucesso"
+                    },
+                    "deletedExpense": {
+                      "$ref": "#/components/schemas/Expense"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token não fornecido",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          },
+          "404": {
+            "description": "Despesa não encontrada",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Error" }
+              }
+            }
+          }
         }
       }
     }

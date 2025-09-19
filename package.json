@@ -5,16 +5,17 @@
   "scripts": {
     "start": "node server.js",
     "test": "mocha 'test/**/*.test.js' --timeout 10000 --reporter mochawesome",
-    "test-controller-rest": "mocha 'test/rest/controller/**/*.test.js' --timeout 10000 --reporter mochawesome"
-  },
-  "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "express": "^4.21.2",
-    "jsonwebtoken": "^9.0.2",
-    "swagger-ui-express": "^5.0.1"
+    "test-controller-rest": "mocha 'test/rest/controller/**/*.test.js' --timeout 10000 --reporter mochawesome",
+    "test-external-rest": "mocha 'test/rest/external/**/*.test.js' --timeout 10000 --reporter mochawesome"
   },
   "devDependencies": {
-    "chai": "^6.0.1",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.6.1",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "swagger-ui-express": "^5.0.1",
+    "chai": "4.5.0",
+    "chai-exclude": "^2.1.1",
     "mocha": "^11.7.2",
     "mochawesome": "^7.1.4",
     "sinon": "^21.0.0",

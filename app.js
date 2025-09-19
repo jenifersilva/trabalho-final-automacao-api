@@ -12,8 +12,6 @@ app.use(express.json());
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(userRoutes);
-app.use(expenseRoutes);
-
-app.use(authenticateToken, expenseRoutes);
+app.use('/expenses', authenticateToken, expenseRoutes);
 
 module.exports = app;

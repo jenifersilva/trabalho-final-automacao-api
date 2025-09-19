@@ -1,0 +1,50 @@
+[
+  {
+    "testName": "Deve retornar erro quando o usuário não for informado",
+    "loginUser": {
+      "query": "query Login($username: String!, $password: String!) { login(username: $username, password: $password) { token } }",
+      "variables": {
+        "username": "",
+        "password": "password"
+      }
+    },
+    "statusCode": 200,
+    "expectedMessage": "Usuário e senha obrigatórios"
+  },
+  {
+    "testName": "Deve retornar erro quando a senha não for informada",
+    "loginUser": {
+      "query": "query Login($username: String!, $password: String!) { login(username: $username, password: $password) { token } }",
+      "variables": {
+        "username": "jenifer",
+        "password": ""
+      }
+    },
+    "statusCode": 200,
+    "expectedMessage": "Usuário e senha obrigatórios"
+  },
+  {
+    "testName": "Deve retornar erro quando informar usuário inexistente",
+    "loginUser": {
+      "query": "query Login($username: String!, $password: String!) { login(username: $username, password: $password) { token } }",
+      "variables": {
+        "username": "string",
+        "password": "password"
+      }
+    },
+    "statusCode": 200,
+    "expectedMessage": "Credenciais inválidas"
+  },
+  {
+    "testName": "Deve retornar erro quando informar senha incorreta",
+    "loginUser": {
+      "query": "query Login($username: String!, $password: String!) { login(username: $username, password: $password) { token } }",
+      "variables": {
+        "username": "jenifer",
+        "password": "string"
+      }
+    },
+    "statusCode": 200,
+    "expectedMessage": "Credenciais inválidas"
+  }
+]

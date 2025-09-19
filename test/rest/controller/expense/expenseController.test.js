@@ -1,13 +1,13 @@
 const request = require("supertest");
 const { expect, use } = require("chai");
-const app = require("../../../app.js");
+const app = require("../../../../app.js");
 
 const chaiExclude = require("chai-exclude");
 use(chaiExclude);
 
 describe("Expense Controller", () => {
   before(async () => {
-    const loginRequest = require("../fixture/requests/user/loginRequest.json");
+    const loginRequest = require("../../fixture/requests/user/loginRequest.json");
     const respostaLogin = await request(app)
       .post("/users/login")
       .send(loginRequest);
@@ -16,7 +16,7 @@ describe("Expense Controller", () => {
   });
 
   describe("POST /expenses", () => {
-    const businessErrorsTests = require("../fixture/requests/expense/createExpenseRequestWithError.json");
+    const businessErrorsTests = require("../../fixture/requests/expense/createExpenseRequestWithError.json");
     businessErrorsTests.forEach((test) => {
       it(`${test.testName}`, async () => {
         const response = await request(app)
@@ -29,13 +29,13 @@ describe("Expense Controller", () => {
     });
 
     it("Deve registrar uma despesa com sucesso", async () => {
-      const expenseRequest = require("../fixture/requests/expense/expenseRequest.json");
+      const expenseRequest = require("../../fixture/requests/expense/expenseRequest.json");
       const response = await request(app)
         .post("/expenses")
         .set("Authorization", `Bearer ${token}`)
         .send(expenseRequest);
 
-      const expectedResponse = require("../fixture/responses/expense/createExpenseSuccessfulResponse.json");
+      const expectedResponse = require("../../fixture/responses/expense/createExpenseSuccessfulResponse.json");
       expect(response.status).to.equal(expectedResponse.statusCode);
       expect(response.body)
         .excluding("date")
@@ -44,7 +44,7 @@ describe("Expense Controller", () => {
   });
 
   describe("PUT /expenses", () => {
-    const businessErrorsTests = require("../fixture/requests/expense/editExpenseRequestWithError.json");
+    const businessErrorsTests = require("../../fixture/requests/expense/editExpenseRequestWithError.json");
     businessErrorsTests.forEach((test) => {
       it(`${test.testName}`, async () => {
         const response = await request(app)
@@ -57,13 +57,13 @@ describe("Expense Controller", () => {
     });
 
     it("Deve editar uma despesa com sucesso", async () => {
-      const expenseRequest = require("../fixture/requests/expense/expenseRequest.json");
+      const expenseRequest = require("../../fixture/requests/expense/expenseRequest.json");
       const response = await request(app)
         .put("/expenses/1")
         .set("Authorization", `Bearer ${token}`)
         .send(expenseRequest);
 
-      const expectedResponse = require("../fixture/responses/expense/editExpenseSuccessfulResponse.json");
+      const expectedResponse = require("../../fixture/responses/expense/editExpenseSuccessfulResponse.json");
       expect(response.status).to.equal(expectedResponse.statusCode);
       expect(response.body)
         .excluding("date")

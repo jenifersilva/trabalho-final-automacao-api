@@ -2,7 +2,7 @@ const { expenses } = require('../model/expenseModel');
 
 function addExpense(username, expense) {
   const { description, value, date } = expense;
-  if (!description || !value || !date) {
+  if (!description || !value || value <= 0 || !date) {
     const err = new Error('Campos obrigatórios: description, value, date');
     err.status = 400;
     throw err;
@@ -36,6 +36,11 @@ function editExpense(username, id, data) {
         data[field] === ""
       ) {
         const err = new Error(`O campo ${field} não pode estar vazio`);
+        err.status = 400;
+        throw err;
+      }
+      if (field === "value" && data[field] <= 0) {
+        const err = new Error("O campo value não pode ser menor ou igual a zero");
         err.status = 400;
         throw err;
       }

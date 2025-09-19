@@ -2,10 +2,10 @@
   {
     "testName": "Deve retornar erro quando a descrição não for informada",
     "editExpense": {
-      "query": "mutation Mutation($id: Int!, $description: String, $value: Float, $date: String) { editExpense(id: $id, description: $description, value: $value, date: $date) { id description value date username } }",
+      "query": "mutation Mutation($description: String, $value: Float, $date: String, $id: Int!) { editExpense(description: $description, value: $value, date: $date, id: $id) { id description value date username } }",
       "variables": {
         "id": 1,
-        "description": null,
+        "description": "",
         "value": 10,
         "date": "2025-09-18"
       }
@@ -16,7 +16,21 @@
   {
     "testName": "Deve retornar erro quando o valor não for informado",
     "editExpense": {
-      "query": "mutation Mutation($id: Int!, $description: String, $value: Float, $date: String) { editExpense(id: $id, description: $description, value: $value, date: $date) { id description value date username } }",
+      "query": "mutation Mutation($description: String, $value: Float, $date: String, $id: Int!) { editExpense(description: $description, value: $value, date: $date, id: $id) { id description value date username } }",
+      "variables": {
+        "id": 1,
+        "description": "string",
+        "value": 0,
+        "date": "2025-09-18"
+      }
+    },
+    "statusCode": 200,
+    "expectedMessage": "O campo value não pode ser menor ou igual a zero"
+  },
+  {
+    "testName": "Deve retornar erro quando o valor não for informado",
+    "editExpense": {
+      "query": "mutation Mutation($description: String, $value: Float, $date: String, $id: Int!) { editExpense(description: $description, value: $value, date: $date, id: $id) { id description value date username } }",
       "variables": {
         "id": 1,
         "description": "string",
@@ -30,12 +44,12 @@
   {
     "testName": "Deve retornar erro quando a data não for informada",
     "editExpense": {
-      "query": "mutation Mutation($id: Int!, $description: String, $value: Float, $date: String) { editExpense(id: $id, description: $description, value: $value, date: $date) { id description value date username } }",
+      "query": "mutation Mutation($description: String, $value: Float, $date: String, $id: Int!) { editExpense(description: $description, value: $value, date: $date, id: $id) { id description value date username } }",
       "variables": {
         "id": 1,
         "description": "string",
         "value": 10,
-        "date": null
+        "date": ""
       }
     },
     "statusCode": 200,

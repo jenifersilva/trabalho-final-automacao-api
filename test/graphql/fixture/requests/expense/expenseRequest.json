@@ -1,8 +1,0 @@
-{
-  "query": "mutation AddExpense($description: String!, $value: Float!, $date: String!) { addExpense(description: $description, value: $value, date: $date) { id description value date username } }",
-  "variables": {
-    "description": "Almoço",
-    "value": 25.5,
-    "date": "2025-09-18"
-  }
-}

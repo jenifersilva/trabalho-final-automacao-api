@@ -1,0 +1,12 @@
+{
+  "data": {
+    "addExpense": {
+      "id": 14,
+      "description": "Almoço",
+      "value": 25.5,
+      "date": "2025-09-18",
+      "username": "jenifer"
+    }
+  },
+  "statusCode": 200
+}

@@ -5,9 +5,9 @@
     "passes": 20,
     "pending": 0,
     "failures": 0,
-    "start": "2025-09-19T17:41:11.096Z",
-    "end": "2025-09-19T17:41:11.363Z",
-    "duration": 267,
+    "start": "2025-09-19T17:55:10.674Z",
+    "end": "2025-09-19T17:55:10.931Z",
+    "duration": 257,
     "testsRegistered": 20,
     "passPercent": 100,
     "pendingPercent": 0,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "0d995571-20e9-4022-8502-699cab12d7dd",
+      "uuid": "43cc43f8-a8b1-4875-892e-7546d49a7113",
       "title": "",
       "fullFile": "",
       "file": "",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "06bad8c6-018b-46c9-9dec-ea9505ca0158",
+          "uuid": "771ff30e-0faa-43b7-8036-5e9c9b9b74d9",
           "title": "Expense External - GraphQL",
           "fullFile": "/home/runner/work/trabalho-final-automacao-api/trabalho-final-automacao-api/test/graphql/external/expense/expenseExternal.graphql.test.js",
           "file": "/test/graphql/external/expense/expenseExternal.graphql.test.js",
@@ -36,7 +36,7 @@
               "title": "\"before all\" hook in \"Expense External - GraphQL\"",
               "fullTitle": "Expense External - GraphQL \"before all\" hook in \"Expense External - GraphQL\"",
               "timedOut": false,
-              "duration": 62,
+              "duration": 60,
               "state": null,
               "speed": null,
               "pass": false,
@@ -45,8 +45,8 @@
               "context": null,
               "code": "const loginRequest = require(\"../../fixture/requests/user/loginRequest.json\");\nconst response = await request(process.env.BASE_URL_GRAPHQL)\n  .post(\"/\")\n  .send(loginRequest);\ntoken = response.body.data.login.token;",
               "err": {},
-              "uuid": "7ea72658-2ba0-4112-96f9-80d2e5ccfaae",
-              "parentUUID": "06bad8c6-018b-46c9-9dec-ea9505ca0158",
+              "uuid": "c00ffb6f-6b30-4232-a9ba-a2a32fb0cc5a",
+              "parentUUID": "771ff30e-0faa-43b7-8036-5e9c9b9b74d9",
               "isHook": true,
               "skipped": false
             }
@@ -55,7 +55,7 @@
           "tests": [],
           "suites": [
             {
-              "uuid": "25e49ac7-8857-4472-b4c9-e0b9d6fdc111",
+              "uuid": "e2763b20-0de0-4ad3-88e3-8b1a0f8ab530",
               "title": "addExpense Mutation",
               "fullFile": "/home/runner/work/trabalho-final-automacao-api/trabalho-final-automacao-api/test/graphql/external/expense/expenseExternal.graphql.test.js",
               "file": "/test/graphql/external/expense/expenseExternal.graphql.test.js",
@@ -75,8 +75,8 @@
                   "context": null,
                   "code": "const response = await request(process.env.BASE_URL_GRAPHQL)\n  .post(\"/\")\n  .set(\"Authorization\", `Bearer ${token}`)\n  .send(test.addExpense);\nexpect(response.status).to.equal(test.statusCode);\nexpect(response.body.errors[0].message).to.equal(test.expectedMessage);",
                   "err": {},
-                  "uuid": "70706f4e-8957-4842-a7ae-4e86ef47f653",
-                  "parentUUID": "25e49ac7-8857-4472-b4c9-e0b9d6fdc111",
+                  "uuid": "e8ab421d-73db-4a27-8467-c338ac935632",
+                  "parentUUID": "e2763b20-0de0-4ad3-88e3-8b1a0f8ab530",
                   "isHook": false,
                   "skipped": false
                 },
@@ -93,8 +93,8 @@
                   "context": null,
                   "code": "const response = await request(process.env.BASE_URL_GRAPHQL)\n  .post(\"/\")\n  .set(\"Authorization\", `Bearer ${token}`)\n  .send(test.addExpense);\nexpect(response.status).to.equal(test.statusCode);\nexpect(response.body.errors[0].message).to.equal(test.expectedMessage);",
                   "err": {},
-                  "uuid": "d758ee89-b7e1-452f-97b3-e93785798f73",
-                  "parentUUID": "25e49ac7-8857-4472-b4c9-e0b9d6fdc111",
+                  "uuid": "56ad556d-c166-4449-9d2a-ee8472482575",
+                  "parentUUID": "e2763b20-0de0-4ad3-88e3-8b1a0f8ab530",
                   "isHook": false,
                   "skipped": false
                 },
@@ -111,8 +111,8 @@
                   "context": null,
                   "code": "const response = await request(process.env.BASE_URL_GRAPHQL)\n  .post(\"/\")\n  .set(\"Authorization\", `Bearer ${token}`)\n  .send(test.addExpense);\nexpect(response.status).to.equal(test.statusCode);\nexpect(response.body.errors[0].message).to.equal(test.expectedMessage);",
                   "err": {},
-                  "uuid": "6d97baff-adf6-4158-b1c0-a9066b68a5d1",
-                  "parentUUID": "25e49ac7-8857-4472-b4c9-e0b9d6fdc111",
+                  "uuid": "040c8de2-6739-4610-8cf8-722fdd523f79",
+                  "parentUUID": "e2763b20-0de0-4ad3-88e3-8b1a0f8ab530",
                   "isHook": false,
                   "skipped": false
                 },
@@ -129,8 +129,8 @@
                   "context": null,
                   "code": "const response = await request(process.env.BASE_URL_GRAPHQL)\n  .post(\"/\")\n  .send(createExpenseRequest);\nexpect(response.body.errors[0].message).to.equal(\"Not authenticated\");",
                   "err": {},
-                  "uuid": "a03f8a33-421a-49e2-b418-d31b50c24954",
-                  "parentUUID": "25e49ac7-8857-4472-b4c9-e0b9d6fdc111",
+                  "uuid": "e5094270-73c0-4f96-92a1-75ebe2825c3d",
+                  "parentUUID": "e2763b20-0de0-4ad3-88e3-8b1a0f8ab530",
                   "isHook": false,
                   "skipped": false
                 },
@@ -147,19 +147,19 @@
                   "context": null,
                   "code": "const response = await request(process.env.BASE_URL_GRAPHQL)\n  .post(\"/\")\n  .set(\"Authorization\", `Bearer ${token}`)\n  .send(createExpenseRequest);\nconst expectedResponse = require(\"../../fixture/responses/expense/createExpenseSuccessfulResponse.json\");\nexpect(response.status).to.equal(expectedResponse.statusCode);\nexpect(response.body.data.addExpense)\n  .excluding([\"date\", \"id\"])\n  .to.deep.equal(expectedResponse.data.addExpense);\nexpenseId = response.body.data.addExpense.id;",
                   "err": {},
-                  "uuid": "00b7fca0-0da0-463a-b5ee-56954d9352b7",
-                  "parentUUID": "25e49ac7-8857-4472-b4c9-e0b9d6fdc111",
+                  "uuid": "7422c8ad-0a33-4be3-b59c-42bc4235027b",
+                  "parentUUID": "e2763b20-0de0-4ad3-88e3-8b1a0f8ab530",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "70706f4e-8957-4842-a7ae-4e86ef47f653",
-                "d758ee89-b7e1-452f-97b3-e93785798f73",
-                "6d97baff-adf6-4158-b1c0-a9066b68a5d1",
-                "a03f8a33-421a-49e2-b418-d31b50c24954",
-                "00b7fca0-0da0-463a-b5ee-56954d9352b7"
+                "e8ab421d-73db-4a27-8467-c338ac935632",
+                "56ad556d-c166-4449-9d2a-ee8472482575",
+                "040c8de2-6739-4610-8cf8-722fdd523f79",
+                "e5094270-73c0-4f96-92a1-75ebe2825c3d",
+                "7422c8ad-0a33-4be3-b59c-42bc4235027b"
               ],
               "failures": [],
               "pending": [],
@@ -170,7 +170,7 @@
               "_timeout": 10000
             },
             {
-              "uuid": "a133413b-cbbe-4453-9197-d5672fdd426f",
+              "uuid": "2067aa4a-9e4e-4194-bd6a-9286c1dba7df",
               "title": "editExpense mutation",
               "fullFile": "/home/runner/work/trabalho-final-automacao-api/trabalho-final-automacao-api/test/graphql/external/expense/expenseExternal.graphql.test.js",
               "file": "/test/graphql/external/expense/expenseExternal.graphql.test.js",
@@ -190,8 +190,26 @@
                   "context": null,
                   "code": "const response = await request(process.env.BASE_URL_GRAPHQL)\n  .post(\"/\")\n  .set(\"Authorization\", `Bearer ${token}`)\n  .send(test.editExpense);\nexpect(response.body.errors[0].message).to.equal(test.expectedMessage);",
                   "err": {},
-                  "uuid": "032be439-2a89-419b-b230-671e095cb073",
-                  "parentUUID": "a133413b-cbbe-4453-9197-d5672fdd426f",
+                  "uuid": "c879b4ff-9c87-463b-be16-367d04fb214b",
+                  "parentUUID": "2067aa4a-9e4e-4194-bd6a-9286c1dba7df",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "Deve retornar erro quando o valor não for informado",
+                  "fullTitle": "Expense External - GraphQL editExpense mutation Deve retornar erro quando o valor não for informado",
+                  "timedOut": false,
+                  "duration": 2,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "const response = await request(process.env.BASE_URL_GRAPHQL)\n  .post(\"/\")\n  .set(\"Authorization\", `Bearer ${token}`)\n  .send(test.editExpense);\nexpect(response.body.errors[0].message).to.equal(test.expectedMessage);",
+                  "err": {},
+                  "uuid": "e2311ccb-c673-4192-ab7a-3cbcf3d8126b",
+                  "parentUUID": "2067aa4a-9e4e-4194-bd6a-9286c1dba7df",
                   "isHook": false,
                   "skipped": false
                 },
@@ -208,26 +226,8 @@
                   "context": null,
                   "code": "const response = await request(process.env.BASE_URL_GRAPHQL)\n  .post(\"/\")\n  .set(\"Authorization\", `Bearer ${token}`)\n  .send(test.editExpense);\nexpect(response.body.errors[0].message).to.equal(test.expectedMessage);",
                   "err": {},
-                  "uuid": "f1b66b4e-9c99-474f-9e76-35fd9e0e7623",
-                  "parentUUID": "a133413b-cbbe-4453-9197-d5672fdd426f",
-                  "isHook": false,
-                  "skipped": false
-                },
-                {
-                  "title": "Deve retornar erro quando o valor não for informado",
-                  "fullTitle": "Expense External - GraphQL editExpense mutation Deve retornar erro quando o valor não for informado",
-                  "timedOut": false,
-                  "duration": 3,
-                  "state": "passed",
-                  "speed": "fast",
-                  "pass": true,
-                  "fail": false,
-                  "pending": false,
-                  "context": null,
-                  "code": "const response = await request(process.env.BASE_URL_GRAPHQL)\n  .post(\"/\")\n  .set(\"Authorization\", `Bearer ${token}`)\n  .send(test.editExpense);\nexpect(response.body.errors[0].message).to.equal(test.expectedMessage);",
-                  "err": {},
-                  "uuid": "ebc64c73-498b-4d5c-be28-4fba08dc675f",
-                  "parentUUID": "a133413b-cbbe-4453-9197-d5672fdd426f",
+                  "uuid": "929eb06b-a612-43b5-a065-84b0a7fd89b3",
+                  "parentUUID": "2067aa4a-9e4e-4194-bd6a-9286c1dba7df",
                   "isHook": false,
                   "skipped": false
                 },
@@ -244,8 +244,8 @@
                   "context": null,
                   "code": "const response = await request(process.env.BASE_URL_GRAPHQL)\n  .post(\"/\")\n  .set(\"Authorization\", `Bearer ${token}`)\n  .send(test.editExpense);\nexpect(response.body.errors[0].message).to.equal(test.expectedMessage);",
                   "err": {},
-                  "uuid": "121c4f8c-f3b8-4856-9343-e914a6e08c64",
-                  "parentUUID": "a133413b-cbbe-4453-9197-d5672fdd426f",
+                  "uuid": "f2d62c82-559d-4c5e-9906-80752175c894",
+                  "parentUUID": "2067aa4a-9e4e-4194-bd6a-9286c1dba7df",
                   "isHook": false,
                   "skipped": false
                 },
@@ -262,8 +262,8 @@
                   "context": null,
                   "code": "// Use the dynamically created expense ID\neditExpenseRequest.variables.id = expenseId;\nconst response = await request(process.env.BASE_URL_GRAPHQL)\n  .post(\"/\")\n  .send(editExpenseRequest);\nexpect(response.body.errors[0].message).to.equal(\"Not authenticated\");",
                   "err": {},
-                  "uuid": "eab331ba-2049-4a16-a74a-6ba4a50d9c62",
-                  "parentUUID": "a133413b-cbbe-4453-9197-d5672fdd426f",
+                  "uuid": "26f1060b-7951-4d25-bb4e-0100824f31c7",
+                  "parentUUID": "2067aa4a-9e4e-4194-bd6a-9286c1dba7df",
                   "isHook": false,
                   "skipped": false
                 },
@@ -280,25 +280,25 @@
                   "context": null,
                   "code": "// Use the dynamically created expense ID\neditExpenseRequest.variables.id = expenseId;\nconst response = await request(process.env.BASE_URL_GRAPHQL)\n  .post(\"/\")\n  .set(\"Authorization\", `Bearer ${token}`)\n  .send(editExpenseRequest);\nconst expectedResponse = require(\"../../fixture/responses/expense/editExpenseSuccessfulResponse.json\");\nexpect(response.status).to.equal(expectedResponse.statusCode);\nexpect(response.body.data.editExpense).to.deep.equal(\n  expectedResponse.data.editExpense\n);",
                   "err": {},
-                  "uuid": "551e5601-5888-4cf0-98ce-e60d04a96e9f",
-                  "parentUUID": "a133413b-cbbe-4453-9197-d5672fdd426f",
+                  "uuid": "c2349649-6d78-4098-bc93-dd85c46fc758",
+                  "parentUUID": "2067aa4a-9e4e-4194-bd6a-9286c1dba7df",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "032be439-2a89-419b-b230-671e095cb073",
-                "f1b66b4e-9c99-474f-9e76-35fd9e0e7623",
-                "ebc64c73-498b-4d5c-be28-4fba08dc675f",
-                "121c4f8c-f3b8-4856-9343-e914a6e08c64",
-                "eab331ba-2049-4a16-a74a-6ba4a50d9c62",
-                "551e5601-5888-4cf0-98ce-e60d04a96e9f"
+                "c879b4ff-9c87-463b-be16-367d04fb214b",
+                "e2311ccb-c673-4192-ab7a-3cbcf3d8126b",
+                "929eb06b-a612-43b5-a065-84b0a7fd89b3",
+                "f2d62c82-559d-4c5e-9906-80752175c894",
+                "26f1060b-7951-4d25-bb4e-0100824f31c7",
+                "c2349649-6d78-4098-bc93-dd85c46fc758"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 20,
+              "duration": 19,
               "root": false,
               "rootEmpty": false,
               "_timeout": 10000
@@ -314,7 +314,7 @@
           "_timeout": 10000
         },
         {
-          "uuid": "d66fd03e-2952-4be6-8eef-b0b29f4cec27",
+          "uuid": "9f8792bd-d4a4-4570-8b94-529ed40205cd",
           "title": "User External - GraphQL",
           "fullFile": "/home/runner/work/trabalho-final-automacao-api/trabalho-final-automacao-api/test/graphql/external/user/userExternal.graphql.test.js",
           "file": "/test/graphql/external/user/userExternal.graphql.test.js",
@@ -323,7 +323,7 @@
           "tests": [],
           "suites": [
             {
-              "uuid": "3613b13a-4f64-4841-a1f1-a747b01c3c62",
+              "uuid": "38dc2f8d-5058-44c3-92ef-4adbf427ec5f",
               "title": "register mutation",
               "fullFile": "/home/runner/work/trabalho-final-automacao-api/trabalho-final-automacao-api/test/graphql/external/user/userExternal.graphql.test.js",
               "file": "/test/graphql/external/user/userExternal.graphql.test.js",
@@ -334,7 +334,7 @@
                   "title": "Deve retornar erro quando o usuário não for informado",
                   "fullTitle": "User External - GraphQL register mutation Deve retornar erro quando o usuário não for informado",
                   "timedOut": false,
-                  "duration": 4,
+                  "duration": 3,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -343,14 +343,32 @@
                   "context": null,
                   "code": "const response = await request(process.env.BASE_URL_GRAPHQL)\n  .post(\"/\")\n  .send(test.createUser);\nexpect(response.status).to.equal(test.statusCode);\nexpect(response.body.errors[0].message).to.equal(test.expectedMessage);",
                   "err": {},
-                  "uuid": "52e52f1c-bed4-4ed0-8823-ce7742482a22",
-                  "parentUUID": "3613b13a-4f64-4841-a1f1-a747b01c3c62",
+                  "uuid": "f92fa324-3164-40cd-91a3-d27da3290af5",
+                  "parentUUID": "38dc2f8d-5058-44c3-92ef-4adbf427ec5f",
                   "isHook": false,
                   "skipped": false
                 },
                 {
                   "title": "Deve retornar erro quando a senha não for informada",
                   "fullTitle": "User External - GraphQL register mutation Deve retornar erro quando a senha não for informada",
+                  "timedOut": false,
+                  "duration": 3,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "const response = await request(process.env.BASE_URL_GRAPHQL)\n  .post(\"/\")\n  .send(test.createUser);\nexpect(response.status).to.equal(test.statusCode);\nexpect(response.body.errors[0].message).to.equal(test.expectedMessage);",
+                  "err": {},
+                  "uuid": "850c98c6-5965-46e7-ae57-3bd26e68bae4",
+                  "parentUUID": "38dc2f8d-5058-44c3-92ef-4adbf427ec5f",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "Deve retornar erro quando o usuário já existir",
+                  "fullTitle": "User External - GraphQL register mutation Deve retornar erro quando o usuário já existir",
                   "timedOut": false,
                   "duration": 2,
                   "state": "passed",
@@ -361,26 +379,8 @@
                   "context": null,
                   "code": "const response = await request(process.env.BASE_URL_GRAPHQL)\n  .post(\"/\")\n  .send(test.createUser);\nexpect(response.status).to.equal(test.statusCode);\nexpect(response.body.errors[0].message).to.equal(test.expectedMessage);",
                   "err": {},
-                  "uuid": "802db468-49b3-44bb-83ba-7ad6bd427ec5",
-                  "parentUUID": "3613b13a-4f64-4841-a1f1-a747b01c3c62",
-                  "isHook": false,
-                  "skipped": false
-                },
-                {
-                  "title": "Deve retornar erro quando o usuário já existir",
-                  "fullTitle": "User External - GraphQL register mutation Deve retornar erro quando o usuário já existir",
-                  "timedOut": false,
-                  "duration": 3,
-                  "state": "passed",
-                  "speed": "fast",
-                  "pass": true,
-                  "fail": false,
-                  "pending": false,
-                  "context": null,
-                  "code": "const response = await request(process.env.BASE_URL_GRAPHQL)\n  .post(\"/\")\n  .send(test.createUser);\nexpect(response.status).to.equal(test.statusCode);\nexpect(response.body.errors[0].message).to.equal(test.expectedMessage);",
-                  "err": {},
-                  "uuid": "e473e8b1-5501-4382-988b-b636c5b111e4",
-                  "parentUUID": "3613b13a-4f64-4841-a1f1-a747b01c3c62",
+                  "uuid": "5acea973-2769-4327-a96a-2151dde100c4",
+                  "parentUUID": "38dc2f8d-5058-44c3-92ef-4adbf427ec5f",
                   "isHook": false,
                   "skipped": false
                 },
@@ -388,7 +388,7 @@
                   "title": "Deve criar usuário com sucesso",
                   "fullTitle": "User External - GraphQL register mutation Deve criar usuário com sucesso",
                   "timedOut": false,
-                  "duration": 89,
+                  "duration": 85,
                   "state": "passed",
                   "speed": "slow",
                   "pass": true,
@@ -397,29 +397,29 @@
                   "context": null,
                   "code": "const username = `user${Math.floor(Math.random() * 100000)}`;\nconst mutation = `mutation { register(username: \\\"${username}\\\", password: \\\"password\\\") { message } }`;\nconst response = await request(process.env.BASE_URL_GRAPHQL)\n  .post(\"/\")\n  .send({ query: mutation });\nexpect(response.body.data.register.message).to.equal(\n  \"Usuário registrado com sucesso\"\n);",
                   "err": {},
-                  "uuid": "9b753c22-57bb-4af7-b533-57539d8ba6b5",
-                  "parentUUID": "3613b13a-4f64-4841-a1f1-a747b01c3c62",
+                  "uuid": "a89e0266-a009-457e-9456-d4bfae1bb403",
+                  "parentUUID": "38dc2f8d-5058-44c3-92ef-4adbf427ec5f",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "52e52f1c-bed4-4ed0-8823-ce7742482a22",
-                "802db468-49b3-44bb-83ba-7ad6bd427ec5",
-                "e473e8b1-5501-4382-988b-b636c5b111e4",
-                "9b753c22-57bb-4af7-b533-57539d8ba6b5"
+                "f92fa324-3164-40cd-91a3-d27da3290af5",
+                "850c98c6-5965-46e7-ae57-3bd26e68bae4",
+                "5acea973-2769-4327-a96a-2151dde100c4",
+                "a89e0266-a009-457e-9456-d4bfae1bb403"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 98,
+              "duration": 93,
               "root": false,
               "rootEmpty": false,
               "_timeout": 10000
             },
             {
-              "uuid": "8f16aabe-dfb0-4050-a1e4-8aca711f987d",
+              "uuid": "033d4943-66f1-4a8f-994c-294adeb93bf7",
               "title": "login query",
               "fullFile": "/home/runner/work/trabalho-final-automacao-api/trabalho-final-automacao-api/test/graphql/external/user/userExternal.graphql.test.js",
               "file": "/test/graphql/external/user/userExternal.graphql.test.js",
@@ -430,7 +430,7 @@
                   "title": "Deve retornar erro quando o usuário não for informado",
                   "fullTitle": "User External - GraphQL login query Deve retornar erro quando o usuário não for informado",
                   "timedOut": false,
-                  "duration": 3,
+                  "duration": 2,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -439,8 +439,8 @@
                   "context": null,
                   "code": "const response = await request(process.env.BASE_URL_GRAPHQL)\n  .post(\"/\")\n  .send(test.loginUser);\nexpect(response.body.errors[0].message).to.equal(test.expectedMessage);",
                   "err": {},
-                  "uuid": "4b768df4-e145-4c51-8fd1-f2d6792ad88e",
-                  "parentUUID": "8f16aabe-dfb0-4050-a1e4-8aca711f987d",
+                  "uuid": "094420c7-d65f-4e6d-a3ca-f3542738b5e2",
+                  "parentUUID": "033d4943-66f1-4a8f-994c-294adeb93bf7",
                   "isHook": false,
                   "skipped": false
                 },
@@ -457,8 +457,8 @@
                   "context": null,
                   "code": "const response = await request(process.env.BASE_URL_GRAPHQL)\n  .post(\"/\")\n  .send(test.loginUser);\nexpect(response.body.errors[0].message).to.equal(test.expectedMessage);",
                   "err": {},
-                  "uuid": "fd2c03ce-3233-4abb-b372-acfe5371ec44",
-                  "parentUUID": "8f16aabe-dfb0-4050-a1e4-8aca711f987d",
+                  "uuid": "42e4e23c-daff-479a-b99b-e07251f4b8bb",
+                  "parentUUID": "033d4943-66f1-4a8f-994c-294adeb93bf7",
                   "isHook": false,
                   "skipped": false
                 },
@@ -466,7 +466,7 @@
                   "title": "Deve retornar erro quando informar usuário inexistente",
                   "fullTitle": "User External - GraphQL login query Deve retornar erro quando informar usuário inexistente",
                   "timedOut": false,
-                  "duration": 2,
+                  "duration": 1,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -475,8 +475,8 @@
                   "context": null,
                   "code": "const response = await request(process.env.BASE_URL_GRAPHQL)\n  .post(\"/\")\n  .send(test.loginUser);\nexpect(response.body.errors[0].message).to.equal(test.expectedMessage);",
                   "err": {},
-                  "uuid": "3fb30c93-430e-4dfe-97a4-d722a5c5dcf0",
-                  "parentUUID": "8f16aabe-dfb0-4050-a1e4-8aca711f987d",
+                  "uuid": "7979cdb9-f24f-4209-a9d7-c60d419aa171",
+                  "parentUUID": "033d4943-66f1-4a8f-994c-294adeb93bf7",
                   "isHook": false,
                   "skipped": false
                 },
@@ -493,8 +493,8 @@
                   "context": null,
                   "code": "const response = await request(process.env.BASE_URL_GRAPHQL)\n  .post(\"/\")\n  .send(test.loginUser);\nexpect(response.body.errors[0].message).to.equal(test.expectedMessage);",
                   "err": {},
-                  "uuid": "955bb1ef-3f6b-4916-9968-5a16087933e8",
-                  "parentUUID": "8f16aabe-dfb0-4050-a1e4-8aca711f987d",
+                  "uuid": "76ce94c5-a5ca-40da-ac37-61d84c21bebe",
+                  "parentUUID": "033d4943-66f1-4a8f-994c-294adeb93bf7",
                   "isHook": false,
                   "skipped": false
                 },
@@ -502,7 +502,7 @@
                   "title": "Deve realizar o login com sucesso",
                   "fullTitle": "User External - GraphQL login query Deve realizar o login com sucesso",
                   "timedOut": false,
-                  "duration": 25,
+                  "duration": 24,
                   "state": "passed",
                   "speed": "fast",
                   "pass": true,
@@ -511,24 +511,24 @@
                   "context": null,
                   "code": "const loginRequest = require(\"../../fixture/requests/user/loginRequest.json\");\nconst response = await request(process.env.BASE_URL_GRAPHQL)\n  .post(\"/\")\n  .send(loginRequest);\nexpect(response.body.data.login.token).to.be.a(\"string\");",
                   "err": {},
-                  "uuid": "04af3ec0-1dff-4242-b033-428e81a48f25",
-                  "parentUUID": "8f16aabe-dfb0-4050-a1e4-8aca711f987d",
+                  "uuid": "b98b6a1a-24ac-4ab8-a993-671b01b938ae",
+                  "parentUUID": "033d4943-66f1-4a8f-994c-294adeb93bf7",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "4b768df4-e145-4c51-8fd1-f2d6792ad88e",
-                "fd2c03ce-3233-4abb-b372-acfe5371ec44",
-                "3fb30c93-430e-4dfe-97a4-d722a5c5dcf0",
-                "955bb1ef-3f6b-4916-9968-5a16087933e8",
-                "04af3ec0-1dff-4242-b033-428e81a48f25"
+                "094420c7-d65f-4e6d-a3ca-f3542738b5e2",
+                "42e4e23c-daff-479a-b99b-e07251f4b8bb",
+                "7979cdb9-f24f-4209-a9d7-c60d419aa171",
+                "76ce94c5-a5ca-40da-ac37-61d84c21bebe",
+                "b98b6a1a-24ac-4ab8-a993-671b01b938ae"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 55,
+              "duration": 52,
               "root": false,
               "rootEmpty": false,
               "_timeout": 10000
@@ -561,7 +561,7 @@
     "mochawesome": {
       "options": {
         "quiet": false,
-        "reportFilename": "mochawesome",
+        "reportFilename": "index",
         "saveHtml": true,
         "saveJson": true,
         "consoleReporter": "spec",
@@ -571,7 +571,9 @@
       "version": "7.1.4"
     },
     "marge": {
-      "options": null,
+      "options": {
+        "reportFilename": "index"
+      },
       "version": "6.3.0"
     }
   }

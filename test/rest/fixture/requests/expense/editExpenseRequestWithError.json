@@ -30,7 +30,7 @@
     "expectedMessage": "O campo value não pode ser menor ou igual a zero"
   },
   {
-    "testName": "Deve retornar erro quando o valor zero",
+    "testName": "Deve retornar erro quando o valor for igual a zero",
     "editExpense": {
       "description": "string",
       "value": 0,

@@ -4,7 +4,6 @@ const expenseService = require('../service/expenseService');
 
 const router = express.Router();
 
-// Todas as rotas de despesas exigem autenticação
 router.use(authenticateToken);
 
 

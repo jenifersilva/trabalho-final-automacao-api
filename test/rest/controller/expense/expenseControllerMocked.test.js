@@ -77,7 +77,7 @@ describe("Expense Controller - Mocked", () => {
       });
     });
 
-    it("Deve atualizar despesa com sucesso", async () => {
+    it("Deve editar uma despesa com sucesso", async () => {
       const expenseRequest = require("../../fixture/requests/expense/expenseRequest.json");
       const expectedResponse = require("../../fixture/responses/expense/editExpenseSuccessfulResponse.json");
 

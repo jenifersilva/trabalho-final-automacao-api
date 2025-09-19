@@ -43,7 +43,7 @@ describe("Expense Controller", () => {
     });
   });
 
-  describe("PUT /expenses", () => {
+  describe("PUT /expenses/:id", () => {
     const businessErrorsTests = require("../../fixture/requests/expense/editExpenseRequestWithError.json");
     businessErrorsTests.forEach((test) => {
       it(`${test.testName}`, async () => {

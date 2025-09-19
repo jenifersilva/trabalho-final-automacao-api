@@ -29,12 +29,7 @@ API RESTful para registro de usuários, login e controle de despesas, com autent
    npm install
    ```
 
-3. Instale as dependências GraphQL:
-   ```sh
-   npm install @apollo/server@4 @apollo/server-express@4 graphql graphql-tag
-   ```
-
-4. Configure o ambiente:
+3. Configure o ambiente:
    ```sh
    cp .env.example .env
    ```
@@ -42,9 +37,9 @@ API RESTful para registro de usuários, login e controle de despesas, com autent
 
 ## Execução
 
-Para iniciar o servidor:
+Para iniciar a API REST:
 ```sh
-npm start
+npm start-rest
 ```
 
 O servidor estará rodando em: [http://localhost:3000](http://localhost:3000)
@@ -52,7 +47,7 @@ A documentação Swagger estará em: [http://localhost:3000/api-docs](http://loc
 
 Para iniciar a API GraphQL:
 ```sh
-node graphql/server.js
+npm start-graphql
 ```
 
 O playground da API GraphQL estará em: [http://localhost:4000/graphql](http://localhost:4000/graphql)
@@ -79,6 +74,7 @@ O playground da API GraphQL estará em: [http://localhost:4000/graphql](http://l
   - Response: Objeto da despesa criada
   - Validações:
     - Todos os campos são obrigatórios
+    - O campo `value` deve ser maior que zero
     - Valores não podem ser vazios
 
 - `GET /expenses` — Listar despesas do usuário
@@ -90,6 +86,7 @@ O playground da API GraphQL estará em: [http://localhost:4000/graphql](http://l
   - Regras:
     - Somente description, value e date podem ser alterados
     - Campos vazios não são permitidos
+    - O campo `value` deve ser maior que zero
     - Pelo menos um campo deve ser fornecido
 
 - `DELETE /expenses/:id` — Excluir despesa
@@ -165,10 +162,12 @@ mutation {
 1. **Criação**:
    - Todos os campos são obrigatórios (description, value, date)
    - Vinculada automaticamente ao usuário autenticado
+   - O campo `value` deve ser maior que zero
 
 2. **Edição**:
    - Somente description, value e date podem ser alterados
    - Campos vazios não são permitidos
+   - O campo `value` deve ser maior que zero
    - Pelo menos um campo deve ser informado para atualização
 
 3. **Exclusão**:
@@ -244,6 +243,9 @@ Os testes geram relatórios HTML usando Mochawesome em `mochawesome-report/mocha
 │   └── rest/
 │       ├── controller/    # Testes dos controllers
 │       └── fixture/       # Dados para testes
+│   └── graphql/
+│       ├── external/      # Testes de integração GraphQL
+│       └── fixture/       # Dados para testes
 ├── app.js                 # Configuração Express
 ├── server.js             # Entrada da aplicação
 └── .env                  # Variáveis de ambiente
@@ -251,9 +253,8 @@ Os testes geram relatórios HTML usando Mochawesome em `mochawesome-report/mocha
 
 ## Variáveis de Ambiente
 
-- `BASE_URL_REST`: URL base para testes (default: http://localhost:3000)
-- `PORT`: Porta do servidor (default: 3000)
-- `JWT_SECRET`: Chave secreta para JWT (default: supersecretkey)
+- `BASE_URL_REST`: URL base para testes da interface REST (default: http://localhost:3000)
+- `BASE_URL_GRAPHQL`: URL base para testes da interface GraphQL (default: http://localhost:4000/graphql)
 
 ## CI/CD
 

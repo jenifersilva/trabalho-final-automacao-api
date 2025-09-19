@@ -31,7 +31,7 @@ describe("Expense External - GraphQL", () => {
       });
     });
 
-    it("Deve retornar erro quando a edição de uma despesa for feita sem token de autenticação", async () => {
+    it("Deve retornar erro quando a inclusão de uma despesa for feita sem token de autenticação", async () => {
       const response = await request(process.env.BASE_URL_GRAPHQL)
         .post("/")
         .send(createExpenseRequest);
@@ -70,7 +70,6 @@ describe("Expense External - GraphQL", () => {
     });
 
     it("Deve retornar erro quando a edição de uma despesa for feita sem token de autenticação", async () => {
-      // Use the dynamically created expense ID
       editExpenseRequest.variables.id = expenseId;
       const response = await request(process.env.BASE_URL_GRAPHQL)
         .post("/")
@@ -79,7 +78,6 @@ describe("Expense External - GraphQL", () => {
     });
 
     it("Deve editar uma despesa com sucesso", async () => {
-      // Use the dynamically created expense ID
       editExpenseRequest.variables.id = expenseId;
       const response = await request(process.env.BASE_URL_GRAPHQL)
         .post("/")

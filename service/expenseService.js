@@ -24,7 +24,6 @@ function editExpense(username, id, data) {
     throw err;
   }
 
-  // Validar campos permitidos
   const allowedFields = ["description", "value", "date"];
   const updates = {};
 
@@ -48,14 +47,12 @@ function editExpense(username, id, data) {
     }
   }
 
-  // Validar se há algum campo para atualizar
   if (Object.keys(updates).length === 0) {
     const err = new Error("Nenhum campo válido para atualização");
     err.status = 400;
     throw err;
   }
 
-  // Atualizar apenas os campos permitidos
   Object.assign(expense, updates);
   return expense;
 }

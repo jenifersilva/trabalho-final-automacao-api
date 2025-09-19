@@ -5,11 +5,11 @@
   "scripts": {
     "start-rest": "node server.js",
     "start-graphql": "node graphql/server.js",
-    "test": "mocha 'test/**/*.test.js' --timeout 10000 --reporter mochawesome",
-    "test-controller-rest": "mocha 'test/rest/controller/**/*.test.js' --timeout 10000 --reporter mochawesome",
-    "test-controller-graphql": "mocha 'test/graphql/controller/**/*.test.js' --timeout 10000 --reporter mochawesome",
-    "test-external-rest": "mocha 'test/rest/external/**/*.test.js' --timeout 10000 --reporter mochawesome",
-    "test-external-graphql": "mocha 'test/graphql/external/**/*.test.js' --timeout 10000 --reporter mochawesome"
+    "test": "mocha \"test/**/*.test.js\" --timeout 10000 --reporter mochawesome --reporter-options reportFilename=index",
+    "test-controller-rest": "mocha 'test/rest/controller/**/*.test.js' --timeout 10000 --reporter mochawesome --reporter-options reportFilename=index",
+    "test-controller-graphql": "mocha 'test/graphql/controller/**/*.test.js' --timeout 10000 --reporter mochawesome --reporter-options reportFilename=index",
+    "test-external-rest": "mocha 'test/rest/external/**/*.test.js' --timeout 10000 --reporter mochawesome --reporter-options reportFilename=index",
+    "test-external-graphql": "mocha 'test/graphql/external/**/*.test.js' --timeout 10000 --reporter mochawesome --reporter-options reportFilename=index"
   },
   "devDependencies": {
     "bcryptjs": "^2.4.3",

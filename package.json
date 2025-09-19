@@ -7,7 +7,6 @@
     "start-graphql": "node graphql/server.js",
     "test": "mocha 'test/**/*.test.js' --timeout 10000 --reporter mochawesome",
     "test-controller-rest": "mocha 'test/rest/controller/**/*.test.js' --timeout 10000 --reporter mochawesome --reporter-options reportDir=mochawesome-report,overwrite=false",
-    "test-controller-graphql": "mocha 'test/graphql/controller/**/*.test.js' --timeout 10000 --reporter mochawesome --reporter-options reportDir=mochawesome-report,overwrite=false",
     "test-external-rest": "mocha 'test/rest/external/**/*.test.js' --timeout 10000 --reporter mochawesome --reporter-options reportDir=mochawesome-report,overwrite=false",
     "test-external-graphql": "mocha 'test/graphql/external/**/*.test.js' --timeout 10000 --reporter mochawesome --reporter-options reportDir=mochawesome-report,overwrite=false",
     "report:merge": "mochawesome-merge mochawesome-report/*.json > mochawesome.json",

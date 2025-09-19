@@ -1,8 +1,8 @@
 const request = require("supertest");
 const { expect } = require("chai");
 const sinon = require("sinon");
-const userService = require("../../../service/userService.js");
-const app = require("../../../app.js");
+const userService = require("../../../../service/userService.js");
+const app = require("../../../../app.js");
 
 describe("User Controller - Mocked", () => {
   afterEach(() => {
@@ -10,7 +10,7 @@ describe("User Controller - Mocked", () => {
   });
 
   describe("POST /users/register", () => {
-    const businessErrorsTests = require("../fixture/requests/user/registerRequestWithError.json");
+    const businessErrorsTests = require("../../fixture/requests/user/createUserRequestWithError.json");
     businessErrorsTests.forEach((test) => {
       it(`${test.testName}`, async () => {
         const error = new Error(test.expectedMessage);
@@ -27,7 +27,7 @@ describe("User Controller - Mocked", () => {
     });
 
     it("Deve criar usuário com sucesso", async () => {
-      const expectedResponse = require("../fixture/responses/user/registerResponseSuccessful.json");
+      const expectedResponse = require("../../fixture/responses/user/createUserResponseSuccessful.json");
       const userServiceMock = sinon.stub(userService, "registerUser");
       userServiceMock.returns({
         message: expectedResponse.body.message,
@@ -45,7 +45,7 @@ describe("User Controller - Mocked", () => {
   });
 
   describe("POST /users/login", () => {
-    const businessErrorsTests = require("../fixture/requests/user/loginRequestWithError.json");
+    const businessErrorsTests = require("../../fixture/requests/user/loginRequestWithError.json");
 
     businessErrorsTests.forEach((test) => {
       it(`${test.testName}`, async () => {
@@ -68,7 +68,7 @@ describe("User Controller - Mocked", () => {
         token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.mocktoken",
       });
 
-      const loginRequest = require("../fixture/requests/user/loginRequest.json");
+      const loginRequest = require("../../fixture/requests/user/loginRequest.json");
       const response = await request(app)
         .post("/users/login")
         .send(loginRequest);

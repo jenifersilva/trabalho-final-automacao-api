@@ -1,0 +1,38 @@
+[
+  {
+    "testName": "Deve retornar erro quando o usuário não for informado",
+    "createUser": {
+      "query": "mutation Register($username: String!, $password: String!) { register(username: $username, password: $password) {message} }",
+      "variables": {
+        "username": "",
+        "password": "password"
+      }
+    },
+    "statusCode": 200,
+    "expectedMessage": "Usuário e senha obrigatórios"
+  },
+  {
+    "testName": "Deve retornar erro quando a senha não for informada",
+    "createUser": {
+      "query": "mutation Register($username: String!, $password: String!) { register(username: $username, password: $password) {message} }",
+      "variables": {
+        "username": "jenifer",
+        "password": ""
+      }
+    },
+    "statusCode": 200,
+    "expectedMessage": "Usuário e senha obrigatórios"
+  },
+  {
+    "testName": "Deve retornar erro quando o usuário já existir",
+    "createUser": {
+      "query": "mutation Register($username: String!, $password: String!) { register(username: $username, password: $password) {message} }",
+      "variables": {
+        "username": "jenifer",
+        "password": "password"
+      }
+    },
+    "statusCode": 200,
+    "expectedMessage": "Usuário já existe"
+  }
+]

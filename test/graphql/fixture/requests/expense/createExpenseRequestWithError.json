@@ -1,0 +1,41 @@
+[
+  {
+    "testName": "Deve retornar erro quando a descrição não for informada",
+    "addExpense": {
+      "query": "mutation Mutation($description: String!, $value: Float!, $date: String!) { addExpense(description: $description, value: $value, date: $date) { id description value date username } }",
+      "variables": {
+        "description": "",
+        "value": 10,
+        "date": "2025-09-18"
+      }
+    },
+    "statusCode": 200,
+    "expectedMessage": "Campos obrigatórios: description, value, date"
+  },
+  {
+    "testName": "Deve retornar erro quando o valor não for informado",
+    "addExpense": {
+      "query": "mutation Mutation($description: String!, $value: Float!, $date: String!) { addExpense(description: $description, value: $value, date: $date) { id description value date username } }",
+      "variables": {
+        "description": "string",
+        "value": 0,
+        "date": "2025-09-18"
+      }
+    },
+    "statusCode": 200,
+    "expectedMessage": "Campos obrigatórios: description, value, date"
+  },
+  {
+    "testName": "Deve retornar erro quando a data não for informada",
+    "addExpense": {
+      "query": "mutation Mutation($description: String!, $value: Float!, $date: String!) { addExpense(description: $description, value: $value, date: $date) { id description value date username } }",
+      "variables": {
+        "description": "string",
+        "value": 10,
+        "date": ""
+      }
+    },
+    "statusCode": 200,
+    "expectedMessage": "Campos obrigatórios: description, value, date"
+  }
+]

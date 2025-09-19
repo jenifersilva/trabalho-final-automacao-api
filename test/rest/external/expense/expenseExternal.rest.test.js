@@ -8,7 +8,7 @@ require("dotenv").config();
 
 describe("Expense External - HTTP Rest", () => {
   before(async () => {
-    const loginRequest = require("../fixture/requests/user/loginRequest.json");
+    const loginRequest = require("../../fixture/requests/user/loginRequest.json");
     const respostaLogin = await request(process.env.BASE_URL_REST)
       .post("/users/login")
       .send(loginRequest);
@@ -17,7 +17,7 @@ describe("Expense External - HTTP Rest", () => {
   });
 
   describe("POST /expenses", () => {
-    const businessErrorsTests = require("../fixture/requests/expense/createExpenseRequestWithError.json");
+    const businessErrorsTests = require("../../fixture/requests/expense/createExpenseRequestWithError.json");
     businessErrorsTests.forEach((test) => {
       it(`${test.testName}`, async () => {
         const response = await request(process.env.BASE_URL_REST)
@@ -29,27 +29,40 @@ describe("Expense External - HTTP Rest", () => {
       });
     });
 
+    it("Deve retornar erro quando a inclusão de uma despesa for feita sem token de autenticação", async () => {
+      const expenseRequest = require("../../fixture/requests/expense/expenseRequest.json");
+      const response = await request(process.env.BASE_URL_REST)
+        .post("/expenses")
+        .send(expenseRequest);
+
+      expect(response.status).to.equal(401);
+      expect(response.body.message).to.equal("Token não fornecido");
+    });
+
     it("Deve registrar uma despesa com sucesso", async () => {
-      const expenseRequest = require("../fixture/requests/expense/expenseRequest.json");
+      const expenseRequest = require("../../fixture/requests/expense/expenseRequest.json");
       const response = await request(process.env.BASE_URL_REST)
         .post("/expenses")
         .set("Authorization", `Bearer ${token}`)
         .send(expenseRequest);
 
-      const expectedResponse = require("../fixture/responses/expense/createExpenseSuccessfulResponse.json");
+      const expectedResponse = require("../../fixture/responses/expense/createExpenseSuccessfulResponse.json");
       expect(response.status).to.equal(expectedResponse.statusCode);
       expect(response.body)
         .excluding(["date", "id"])
         .to.deep.equal(expectedResponse.body);
+      expenseId = response.body.id;
     });
   });
 
   describe("PUT /expenses", () => {
-    const businessErrorsTests = require("../fixture/requests/expense/editExpenseRequestWithError.json");
+    const expenseId = 1;
+
+    const businessErrorsTests = require("../../fixture/requests/expense/editExpenseRequestWithError.json");
     businessErrorsTests.forEach((test) => {
       it(`${test.testName}`, async () => {
         const response = await request(process.env.BASE_URL_REST)
-          .put("/expenses/1")
+          .put(`/expenses/${expenseId}`)
           .set("Authorization", `Bearer ${token}`)
           .send(test.editExpense);
         expect(response.status).to.equal(test.statusCode);
@@ -57,14 +70,24 @@ describe("Expense External - HTTP Rest", () => {
       });
     });
 
-    it("Deve editar uma despesa com sucesso", async () => {
-      const expenseRequest = require("../fixture/requests/expense/expenseRequest.json");
+    it("Deve retornar erro quando a edição de uma despesa for feita sem token de autenticação", async () => {
+      const expenseRequest = require("../../fixture/requests/expense/expenseRequest.json");
       const response = await request(process.env.BASE_URL_REST)
-        .put("/expenses/1")
+        .put(`/expenses/${expenseId}`)
+        .send(expenseRequest);
+
+      expect(response.status).to.equal(401);
+      expect(response.body.message).to.equal("Token não fornecido");
+    });
+
+    it("Deve editar uma despesa com sucesso", async () => {
+      const expenseRequest = require("../../fixture/requests/expense/expenseRequest.json");
+      const response = await request(process.env.BASE_URL_REST)
+        .put(`/expenses/${expenseId}`)
         .set("Authorization", `Bearer ${token}`)
         .send(expenseRequest);
 
-      const expectedResponse = require("../fixture/responses/expense/editExpenseSuccessfulResponse.json");
+      const expectedResponse = require("../../fixture/responses/expense/editExpenseSuccessfulResponse.json");
       expect(response.status).to.equal(expectedResponse.statusCode);
       expect(response.body)
         .excluding("date")

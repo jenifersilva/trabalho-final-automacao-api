@@ -4,12 +4,12 @@ const { expect, use } = require("chai");
 const chaiExclude = require("chai-exclude");
 use(chaiExclude);
 
-const app = require("../../../app.js");
-const expenseService = require("../../../service/expenseService.js");
+const app = require("../../../../app.js");
+const expenseService = require("../../../../service/expenseService.js");
 
 describe("Expense Controller - Mocked", () => {
   before(async () => {
-    const loginRequest = require("../fixture/requests/user/loginRequest.json");
+    const loginRequest = require("../../fixture/requests/user/loginRequest.json");
     const response = await request(app).post("/users/login").send(loginRequest);
 
     token = response.body.token;
@@ -20,7 +20,7 @@ describe("Expense Controller - Mocked", () => {
   });
 
   describe("POST /expenses", () => {
-    const businessErrorsTests = require("../fixture/requests/expense/createExpenseRequestWithError.json");
+    const businessErrorsTests = require("../../fixture/requests/expense/createExpenseRequestWithError.json");
 
     businessErrorsTests.forEach((test) => {
       it(`${test.testName}`, async () => {
@@ -41,8 +41,8 @@ describe("Expense Controller - Mocked", () => {
     });
 
     it("Deve registrar uma despesa com sucesso", async () => {
-      const expenseRequest = require("../fixture/requests/expense/expenseRequest.json");
-      const expectedResponse = require("../fixture/responses/expense/createExpenseSuccessfulResponse.json");
+      const expenseRequest = require("../../fixture/requests/expense/expenseRequest.json");
+      const expectedResponse = require("../../fixture/responses/expense/createExpenseSuccessfulResponse.json");
 
       const expenseServiceMock = sinon.stub(expenseService, "addExpense");
       expenseServiceMock.returns(expectedResponse.body);
@@ -58,7 +58,7 @@ describe("Expense Controller - Mocked", () => {
   });
 
   describe("PUT /expenses/:id", () => {
-    const businessErrorsTests = require("../fixture/requests/expense/editExpenseRequestWithError.json");
+    const businessErrorsTests = require("../../fixture/requests/expense/editExpenseRequestWithError.json");
 
     businessErrorsTests.forEach((test) => {
       it(`${test.testName}`, async () => {
@@ -78,8 +78,8 @@ describe("Expense Controller - Mocked", () => {
     });
 
     it("Deve atualizar despesa com sucesso", async () => {
-      const expenseRequest = require("../fixture/requests/expense/expenseRequest.json");
-      const expectedResponse = require("../fixture/responses/expense/editExpenseSuccessfulResponse.json");
+      const expenseRequest = require("../../fixture/requests/expense/expenseRequest.json");
+      const expectedResponse = require("../../fixture/responses/expense/editExpenseSuccessfulResponse.json");
 
       const expenseServiceMock = sinon.stub(expenseService, "editExpense");
       expenseServiceMock.returns(expectedResponse.body);

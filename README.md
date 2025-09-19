@@ -14,6 +14,7 @@ API RESTful para registro de usuários, login e controle de despesas, com autent
 - Sinon para mocks
 - Mochawesome para relatórios de testes
 - Dotenv para variáveis de ambiente
+- Apollo Server para API GraphQL
 
 ## Instalação
 
@@ -28,7 +29,12 @@ API RESTful para registro de usuários, login e controle de despesas, com autent
    npm install
    ```
 
-3. Configure o ambiente:
+3. Instale as dependências GraphQL:
+   ```sh
+   npm install @apollo/server@4 @apollo/server-express@4 graphql graphql-tag
+   ```
+
+4. Configure o ambiente:
    ```sh
    cp .env.example .env
    ```
@@ -43,6 +49,13 @@ npm start
 
 O servidor estará rodando em: [http://localhost:3000](http://localhost:3000)
 A documentação Swagger estará em: [http://localhost:3000/api-docs](http://localhost:3000/api-docs)
+
+Para iniciar a API GraphQL:
+```sh
+node graphql/server.js
+```
+
+O playground da API GraphQL estará em: [http://localhost:4000/graphql](http://localhost:4000/graphql)
 
 ## Endpoints
 
@@ -90,6 +103,60 @@ A documentação Swagger estará em: [http://localhost:3000/api-docs](http://loc
   - Validações:
     - Verifica se a despesa existe
     - Verifica se a despesa pertence ao usuário
+
+### API GraphQL
+
+A aplicação também expõe uma API GraphQL usando ApolloServer.
+
+#### Estrutura dos arquivos GraphQL
+
+- `graphql/app.js`: Configuração do ApolloServer e Express
+- `graphql/server.js`: Inicialização do servidor
+- `graphql/typeDefs.js`: Definição dos tipos, queries e mutations
+- `graphql/resolvers.js`: Implementação dos resolvers
+
+#### Autenticação JWT nas Mutations
+
+- Para mutations de despesas (addExpense, editExpense, deleteExpense), envie o token JWT no header:
+  ```
+  Authorization: Bearer <token>
+  ```
+- O token é obtido via mutation/login (ou query login) usando usuário e senha
+
+#### Exemplo de Query e Mutation
+
+```graphql
+# Login
+query {
+  login(username: "jenifer", password: "password") {
+    token
+  }
+}
+
+# Registrar usuário
+mutation {
+  register(username: "novo", password: "senha") {
+    message
+  }
+}
+
+# Adicionar despesa (autenticado)
+mutation {
+  addExpense(description: "Café", value: 5.5, date: "2025-09-18") {
+    id
+    description
+    value
+    date
+    username
+  }
+}
+```
+
+### Observações
+- O app.js e server.js da API GraphQL ficam em `graphql/` para facilitar testes com Supertest.
+- As queries e mutations refletem os mesmos fluxos dos endpoints REST.
+- Os types são baseados nos dados de entrada/saída dos testes REST.
+- O ApolloServer e o Express estão em versões compatíveis (ApolloServer v4, Express v4).
 
 ## Regras de Negócio
 
@@ -162,6 +229,11 @@ Os testes geram relatórios HTML usando Mochawesome em `mochawesome-report/mocha
 │   └── expenseController.js # Rotas de despesas
 ├── docs/
 │   └── swagger.json        # Documentação API
+├── graphql/
+│   ├── app.js              # Configuração do ApolloServer e Express
+│   ├── server.js           # Inicialização do servidor
+│   ├── typeDefs.js         # Definição dos tipos, queries e mutations
+│   └── resolvers.js        # Implementação dos resolvers
 ├── model/
 │   ├── userModel.js       # Modelo de usuários
 │   └── expenseModel.js    # Modelo de despesas

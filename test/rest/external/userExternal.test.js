@@ -1,13 +1,14 @@
 const request = require("supertest");
 const { expect } = require("chai");
-const app = require("../../../app.js");
 
-describe("User Controller", () => {
+require("dotenv").config();
+
+describe("User External - HTTP Rest", () => {
   describe("POST /users/register", () => {
     const businessErrorsTests = require("../fixture/requests/user/registerRequestWithError.json");
     businessErrorsTests.forEach((test) => {
       it(`${test.testName}`, async () => {
-        const response = await request(app)
+        const response = await request(process.env.BASE_URL_REST)
           .post("/users/register")
           .send(test.createUser);
         expect(response.status).to.equal(test.statusCode);
@@ -16,7 +17,7 @@ describe("User Controller", () => {
     });
 
     it("Deve criar usuário com sucesso", async () => {
-      const response = await request(app)
+      const response = await request(process.env.BASE_URL_REST)
         .post("/users/register")
         .send({
           username: `user${Math.random()}`,
@@ -33,7 +34,7 @@ describe("User Controller", () => {
     const businessErrorsTests = require("../fixture/requests/user/loginRequestWithError.json");
     businessErrorsTests.forEach((test) => {
       it(`${test.testName}`, async () => {
-        const response = await request(app)
+        const response = await request(process.env.BASE_URL_REST)
           .post("/users/login")
           .send(test.loginUser);
         expect(response.status).to.equal(test.statusCode);
@@ -43,7 +44,7 @@ describe("User Controller", () => {
 
     it("Deve realizar o login com sucesso", async () => {
       const loginRequest = require("../fixture/requests/user/loginRequest.json");
-      const response = await request(app)
+      const response = await request(process.env.BASE_URL_REST)
         .post("/users/login")
         .send(loginRequest);
       expect(response.status).to.equal(200);

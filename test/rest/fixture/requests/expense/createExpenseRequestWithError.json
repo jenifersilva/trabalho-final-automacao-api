@@ -1,0 +1,32 @@
+[
+  {
+    "testName": "Deve retornar erro quando a descrição não for informada",
+    "createExpense": {
+      "description": null,
+      "value": 10,
+      "date": "2025-09-18"
+    },
+    "statusCode": 400,
+    "expectedMessage": "Campos obrigatórios: description, value, date"
+  },
+  {
+    "testName": "Deve retornar erro quando o valor não for informado",
+    "createExpense": {
+      "description": "string",
+      "value": null,
+      "date": "2025-09-18"
+    },
+    "statusCode": 400,
+    "expectedMessage": "Campos obrigatórios: description, value, date"
+  },
+  {
+    "testName": "Deve retornar erro quando a data não for informada",
+    "createExpense": {
+      "description": "string",
+      "value": 10,
+      "date": null
+    },
+    "statusCode": 400,
+    "expectedMessage": "Campos obrigatórios: description, value, date"
+  }
+]

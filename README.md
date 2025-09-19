@@ -29,12 +29,7 @@ API RESTful para registro de usuários, login e controle de despesas, com autent
    npm install
    ```
 
-3. Instale as dependências GraphQL:
-   ```sh
-   npm install @apollo/server@4 @apollo/server-express@4 graphql graphql-tag
-   ```
-
-4. Configure o ambiente:
+3. Configure o ambiente:
    ```sh
    cp .env.example .env
    ```
@@ -42,9 +37,9 @@ API RESTful para registro de usuários, login e controle de despesas, com autent
 
 ## Execução
 
-Para iniciar o servidor:
+Para iniciar a API REST:
 ```sh
-npm start
+npm start-rest
 ```
 
 O servidor estará rodando em: [http://localhost:3000](http://localhost:3000)
@@ -52,7 +47,7 @@ A documentação Swagger estará em: [http://localhost:3000/api-docs](http://loc
 
 Para iniciar a API GraphQL:
 ```sh
-node graphql/server.js
+npm start-graphql
 ```
 
 O playground da API GraphQL estará em: [http://localhost:4000/graphql](http://localhost:4000/graphql)

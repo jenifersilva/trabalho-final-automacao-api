@@ -15,21 +15,29 @@ API RESTful para registro de usuários, login e controle de despesas, com autent
 - Mochawesome para relatórios de testes
 - Dotenv para variáveis de ambiente
 - Apollo Server para API GraphQL
+- k6 para testes de performance e carga
 
 ## Instalação
 
 1. Clone o repositório:
+
    ```sh
    git clone <repo-url>
    cd trabalho-final-automacao-api
    ```
 
 2. Instale as dependências:
+
    ```sh
    npm install
    ```
 
-3. Configure o ambiente:
+3. Instale as dependências GraphQL:
+   ```sh
+   npm install @apollo/server@4 @apollo/server-express@4 graphql graphql-tag
+   ```
+
+4. Configure o ambiente:
    ```sh
    cp .env.example .env
    ```
@@ -38,16 +46,18 @@ API RESTful para registro de usuários, login e controle de despesas, com autent
 ## Execução
 
 Para iniciar a API REST:
+
 ```sh
-npm start-rest
+npm run start-rest
 ```
 
 O servidor estará rodando em: [http://localhost:3000](http://localhost:3000)
 A documentação Swagger estará em: [http://localhost:3000/api-docs](http://localhost:3000/api-docs)
 
 Para iniciar a API GraphQL:
+
 ```sh
-npm start-graphql
+npm run start-graphql
 ```
 
 O playground da API GraphQL estará em: [http://localhost:4000/graphql](http://localhost:4000/graphql)
@@ -57,10 +67,12 @@ O playground da API GraphQL estará em: [http://localhost:4000/graphql](http://l
 ### Usuários
 
 - `POST /users/register` — Registro de novo usuário
+
   - Request: `{ "username": "string", "password": "string" }`
   - Response: `{ "message": "Usuário registrado com sucesso" }`
 
 - `POST /users/login` — Autenticação de usuário
+
   - Request: `{ "username": "string", "password": "string" }`
   - Response: `{ "token": "jwt_token" }`
 
@@ -70,6 +82,7 @@ O playground da API GraphQL estará em: [http://localhost:4000/graphql](http://l
 ### Despesas (Requer Autenticação)
 
 - `POST /expenses` — Criar despesa
+
   - Request: `{ "description": "string", "value": number, "date": "YYYY-MM-DD" }`
   - Response: Objeto da despesa criada
   - Validações:
@@ -78,9 +91,11 @@ O playground da API GraphQL estará em: [http://localhost:4000/graphql](http://l
     - Valores não podem ser vazios
 
 - `GET /expenses` — Listar despesas do usuário
+
   - Response: Array de despesas do usuário autenticado
 
 - `PUT /expenses/:id` — Atualizar despesa
+
   - Request: Campos opcionais `{ "description": "string", "value": number, "date": "YYYY-MM-DD" }`
   - Response: Objeto da despesa atualizada
   - Regras:
@@ -90,7 +105,7 @@ O playground da API GraphQL estará em: [http://localhost:4000/graphql](http://l
     - Pelo menos um campo deve ser fornecido
 
 - `DELETE /expenses/:id` — Excluir despesa
-  - Response: 
+  - Response:
     ```json
     {
       "message": "Despesa excluída com sucesso",
@@ -150,6 +165,7 @@ mutation {
 ```
 
 ### Observações
+
 - O app.js e server.js da API GraphQL ficam em `graphql/` para facilitar testes com Supertest.
 - As queries e mutations refletem os mesmos fluxos dos endpoints REST.
 - Os types são baseados nos dados de entrada/saída dos testes REST.
@@ -160,17 +176,20 @@ mutation {
 ### Despesas
 
 1. **Criação**:
+
    - Todos os campos são obrigatórios (description, value, date)
    - Vinculada automaticamente ao usuário autenticado
    - O campo `value` deve ser maior que zero
 
 2. **Edição**:
+
    - Somente description, value e date podem ser alterados
    - Campos vazios não são permitidos
    - O campo `value` deve ser maior que zero
    - Pelo menos um campo deve ser informado para atualização
 
 3. **Exclusão**:
+
    - Somente o proprietário pode excluir suas despesas
    - Retorna a despesa excluída na resposta
 
@@ -188,11 +207,12 @@ A API utiliza autenticação JWT (JSON Web Token):
 
 ## Testes
 
-A aplicação possui dois tipos de testes:
+A aplicação possui três tipos de testes:
 
 ### Testes de Integração
 
 Testam o fluxo completo das requisições:
+
 ```sh
 npm test
 ```
@@ -200,17 +220,39 @@ npm test
 ### Testes com Mocks
 
 Testam os controllers isoladamente usando Sinon para mockar serviços:
+
 ```sh
 npm run test-controller-rest
 ```
 
 Os testes cobrem:
+
 - Registro de usuário (sucesso e erros)
 - Login (sucesso e erros)
 - Validações de entrada
 - Autenticação JWT
 - Gestão de despesas (CRUD completo)
 - Regras de negócio específicas
+
+### Testes de Performance (k6)
+
+Testes de carga e performance usando k6:
+
+```sh
+npm run test-k6
+```
+
+O teste de performance:
+
+- Valida o endpoint `/expenses` com autenticação JWT
+- Simula 10 usuários virtuais (VUs)
+- Executa por 30 segundos
+- Verifica:
+  - Latência P90 ≤ 6ms e P95 ≤ 7ms
+  - Taxa de erro < 1%
+- Realiza login, busca despesas e valida a resposta
+
+Arquivo: `test/k6/getExpenses.test.js`
 
 ### Relatórios de Testes
 
@@ -259,6 +301,7 @@ Os testes geram relatórios HTML usando Mochawesome em `mochawesome-report/mocha
 ## CI/CD
 
 O projeto utiliza GitHub Actions para:
+
 - Executar testes a cada pull request
 - Executar testes a cada push na branch main
 - Gerar relatórios de testes
@@ -266,6 +309,7 @@ O projeto utiliza GitHub Actions para:
 ## Documentação
 
 Documentação completa e interativa disponível via Swagger UI em `/api-docs`, incluindo:
+
 - Descrição detalhada de todos os endpoints
 - Exemplos de requests e responses
 - Schemas de dados

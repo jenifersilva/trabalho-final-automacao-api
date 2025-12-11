@@ -150,8 +150,8 @@ k6 run test/k6/registerUser.test.js -e BASE_URL=http://localhost:3000
 3. Gere um relatório em HTML:
 
 ```sh
-K6_WEB_DASHBOARD=true K6_WEB_DASHBOARD_EXPORT="test/k6/report.html" K6_WEB_DASHBOARD_PERIOD=1s k6 run test/k6/getExpenses.test.js -e BASE_URL=http://localhost:3000
-K6_WEB_DASHBOARD=true K6_WEB_DASHBOARD_EXPORT="test/k6/report.html" K6_WEB_DASHBOARD_PERIOD=1s k6 run test/k6/registerUser.test.js -e BASE_URL=http://localhost:3000
+K6_WEB_DASHBOARD=true K6_WEB_DASHBOARD_EXPORT="test/k6/report_expenses.html" K6_WEB_DASHBOARD_PERIOD=1s k6 run test/k6/getExpenses.test.js -e BASE_URL=http://localhost:3000
+K6_WEB_DASHBOARD=true K6_WEB_DASHBOARD_EXPORT="test/k6/report_register.html" K6_WEB_DASHBOARD_PERIOD=1s k6 run test/k6/registerUser.test.js -e BASE_URL=http://localhost:3000
 ```
 
-O relatório será gerado no arquivo `test/k6/report.html`.
+Relatórios gerados: `test/k6/report_expenses.html` e `test/k6/report_register.html`

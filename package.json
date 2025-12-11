@@ -9,7 +9,6 @@
     "test-controller-rest": "mocha 'test/rest/controller/**/*.test.js' --timeout 10000 --reporter mochawesome --reporter-options reportDir=mochawesome-report,overwrite=false",
     "test-external-rest": "mocha 'test/rest/external/**/*.test.js' --timeout 10000 --reporter mochawesome --reporter-options reportDir=mochawesome-report,overwrite=false",
     "test-external-graphql": "mocha 'test/graphql/external/**/*.test.js' --timeout 10000 --reporter mochawesome --reporter-options reportDir=mochawesome-report,overwrite=false",
-    "test-k6": "k6 run test/k6/*.test.js",
     "report:merge": "mochawesome-merge mochawesome-report/*.json > mochawesome.json",
     "report:generate": "marge mochawesome.json --reportDir mochawesome-report --reportFilename index"
   },

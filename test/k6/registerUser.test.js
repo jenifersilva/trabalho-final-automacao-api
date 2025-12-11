@@ -3,9 +3,11 @@ import { check, group, sleep } from "k6";
 import { SharedArray } from "k6/data";
 import { Trend } from "k6/metrics";
 import { getBaseUrl } from "./helpers/getBaseUrl.js";
+import { randomUsername } from "./helpers/randomUsername.js";
 import { login } from "./helpers/login.js";
+import faker from "k6/x/faker";
 
-const getExpensesTrend = new Trend("get_expenses_duration");
+const postRegisterTrend = new Trend("post_register_duration");
 
 export const options = {
   stages: [
@@ -24,31 +26,37 @@ const users = new SharedArray("users", function () {
 });
 
 export default function () {
-  const user = users[(__VU - 1) % users.length];
-
-  let username = user.username,
-    password = user.password,
-    token,
-    res;
+  let token, res;
 
   group("Login", () => {
+    const userLogin = users[(__VU - 1) % users.length];
+
+    let username = userLogin.username,
+      password = userLogin.password;
+
     token = login(username, password);
   });
 
-  group("Get expenses", () => {
-    res = http.get(`${getBaseUrl()}/expenses`, {
+  group("Register users", () => {
+    const url = `${getBaseUrl()}/users/register`;
+    const payload = JSON.stringify({
+      username: randomUsername(),
+      password: faker.internet.password(),
+    });
+    const params = {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-    });
+    };
+    res = http.post(url, payload, params);
 
-    getExpensesTrend.add(res.timings.duration);
+    postRegisterTrend.add(res.timings.duration);
   });
 
   group("Verify response", () => {
     check(res, {
-      "get expenses status 200": (r) => r.status === 200,
+      "register status 200": (r) => r.status === 201,
       "response is not empty": (r) => r.json().length > 0,
     });
   });

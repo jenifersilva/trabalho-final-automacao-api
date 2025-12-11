@@ -4,3 +4,4 @@ mochawesome-report/
 .DS_Store
 index.json
 mochawesome.json
+report.html

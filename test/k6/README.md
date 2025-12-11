@@ -1,8 +1,15 @@
-### Testes de Performance com K6
+# Testes de Performance com K6
+
+## `test/k6/getExpenses.js`
 
 O arquivo `test/k6/getExpenses.js` implementa um teste de performance para a API de despesas. Ele utiliza os seguintes conceitos:
 
-- **Thresholds**: Definidos para garantir que 95% das requisições devem terminar em até 2 segundos e a taxa de falhas deve ser menor que 1%.
+### Thresholds
+
+Thresholds são limites de desempenho definidos para garantir que a API atenda aos requisitos esperados. No exemplo abaixo, foram configurados thresholds para:
+
+- **Duração das requisições**: 95% das requisições devem ser concluídas em até 2 segundos.
+- **Taxa de falhas**: Menos de 1% das requisições podem falhar.
 
 ```js
 thresholds: {
@@ -11,7 +18,12 @@ thresholds: {
 },
 ```
 
-- **Checks**: Validações para garantir que a busca de despesas retorne status code 200.
+### Checks
+
+Checks são validações que garantem que as respostas da API atendam aos critérios esperados. No exemplo abaixo, os checks verificam:
+
+- O status da resposta (200 OK).
+- Se a resposta contém os dados esperados.
 
 ```js
 check(responseExpenses, {
@@ -19,7 +31,9 @@ check(responseExpenses, {
 });
 ```
 
-- **Helpers**: A função `login` é reutilizada para autenticação.
+### Helpers
+
+Helpers são funções reutilizáveis que simplificam o código. No exemplo abaixo, a função `login` é um helper que realiza a autenticação e retorna o token JWT.
 
 ```js
 export function login(username, password) {
@@ -31,7 +45,9 @@ export function login(username, password) {
 }
 ```
 
-- **Trends**: Métrica personalizada `get_expenses_duration` coleta o tempo total de cada requisição ao GET expenses.
+### Trends
+
+Trends são métricas personalizadas que coletam dados sobre o desempenho da API. No exemplo abaixo, a métrica `get_expenses_duration` registra o tempo de cada requisição ao endpoint `/expenses`.
 
 ```js
 const getExpensesTrend = new Trend("get_expenses_duration");
@@ -39,7 +55,9 @@ const getExpensesTrend = new Trend("get_expenses_duration");
 getExpensesTrend.add(res.timings.duration);
 ```
 
-- **Variável de Ambiente**: A URL base da API é configurada usando a variável `BASE_URL`.
+### Variável de Ambiente
+
+As variáveis de ambiente permitem configurar dinamicamente a URL base da API e outros parâmetros. No exemplo abaixo, a variável `BASE_URL` é usada para definir a URL da API.
 
 ```js
 export function getBaseUrl() {
@@ -47,7 +65,9 @@ export function getBaseUrl() {
 }
 ```
 
-- **Stages**: Simula carga crescente e decrescente com diferentes números de usuários virtuais.
+### Stages
+
+Stages simulam diferentes níveis de carga, como ramp-up, steady-state e ramp-down. No exemplo abaixo, os stages aumentam e diminuem o número de usuários virtuais (VUs).
 
 ```js
 stages: [
@@ -57,7 +77,12 @@ stages: [
 ];
 ```
 
-- **Reaproveitamento de Resposta e Uso de Token de Autenticação**: O token obtido no login é reutilizado para autenticação nas requisições subsequentes.
+### Reaproveitamento de Resposta e Uso de Token de Autenticação
+
+- **Reaproveitamento de Resposta**: Significa que você usa dados retornados por uma requisição anterior para executar outra requisição.
+- **Uso de Token de Autenticação**: Chave que prova que o usuário está autorizado
+
+No exemplo abaixo, o token obtido no login é reutilizado para autenticação nas requisições subsequentes, garantindo que o fluxo de autenticação seja validado.
 
 ```js
 token = login(username, password);
@@ -70,7 +95,9 @@ res = http.get(`${getBaseUrl()}/expenses`, {
 });
 ```
 
-- **Data-Driven Testing**: Dados de arquivo externo para testar diferentes cenários.
+### Data-Driven Testing
+
+Permite a utilização de dados de um arquivo externo para simular diferentes cenários e validar a API com múltiplos conjuntos de dados. No exemplo abaixo, uma lista de usuários é obtida do arquivo `login.test.data.json`, e cada VU use um usuário diferente, sempre que possível. Se tiver mais VUs do que usuários, o array “repete” corretamente.
 
 ```js
 const users = new SharedArray("users", function () {
@@ -80,7 +107,9 @@ const users = new SharedArray("users", function () {
 const user = users[(__VU - 1) % users.length];
 ```
 
-- **Groups**: O teste é organizado em grupos (Login, Get Expenses e Verify response).
+### Groups
+
+Groups organizam o teste em blocos lógicos, facilitando a leitura e o entendimento do fluxo. No exemplo abaixo, os grupos incluem Login, Get Expenses e Verify Response.
 
 ```js
 group("Login", () => {
@@ -88,9 +117,13 @@ group("Login", () => {
 });
 ```
 
-O arquivo `test/k6/registerUser.js` implementa um teste de performance para a API de usuários. Ele utiliza os seguintes conceitos:
+## `test/k6/registerUser.js`
 
-- **Faker**: Gera dados dinâmicos para senha.
+O arquivo `test/k6/registerUser.js` implementa um teste de performance para a API de usuários. Ele utiliza, além dos conceitos acima, a biblioteca Faker:
+
+### Faker
+
+Faker é usado para gerar dados dinâmicos, como nomes de usuário e senhas, garantindo que os testes sejam variados e realistas. No exemplo abaixo, o Faker é utilizado para gerar senhas.
 
 ```js
 const payload = JSON.stringify({
@@ -99,7 +132,7 @@ const payload = JSON.stringify({
 });
 ```
 
-#### Executando o Teste
+## Executando os Testes
 
 1. Inicie a aplicação:
 
